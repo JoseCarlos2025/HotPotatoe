@@ -1,0 +1,253 @@
+{
+    "questions": [
+      {
+        "question": "¿Qué isla posee una araña venenosa?",
+        "answers": [
+          { "text": "El Hierro", "correct": true },
+          { "text": "La Palma", "correct": false },
+          { "text": "Tenerife", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla tenía un lenguaje antigüo NO verbal?",
+        "answers": [
+          { "text": "Gran Canaria", "correct": false },
+          { "text": "La Gomera", "correct": true },
+          { "text": "Lanzarote", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llamaba el lenguaje NO verbal que utilizaban los aborígenes de una de nuestras islas?",
+        "answers": [
+          { "text": "Canto Canario", "correct": false },
+          { "text": "Flauta Aborígen", "correct": false },
+          { "text": "Silbo Gomero", "correct": true }
+        ]
+      },
+      {
+      "question": "¿Cuál es la capital de la isla de Gran Canaria?",
+      "answers": [
+        { "text": "Santa Cruz de Tenerife", "correct": false },
+        { "text": "Las Palmas de Gran Canaria", "correct": true },
+        { "text": "Arrecife", "correct": false }
+      ]
+    },
+    {
+      "question": "¿Cuál es el pico más alto de Canarias?",
+      "answers": [
+        { "text": "Roque Nublo", "correct": false },
+        { "text": "Montaña de Tindaya", "correct": false },
+        { "text": "El Teide", "correct": true }
+      ]
+    },
+    {
+      "question": "¿Qué isla canaria es conocida como 'la isla bonita'?",
+      "answers": [
+        { "text": "La Gomera", "correct": false },
+        { "text": "El Hierro", "correct": false },
+        { "text": "La Palma", "correct": true }
+      ]
+    },
+    {
+      "question": "¿Cómo se llama el instrumento musical típico de Canarias?",
+      "answers": [
+        { "text": "El timple", "correct": true },
+        { "text": "La guitarra", "correct": false },
+        { "text": "La bandurria", "correct": false }
+      ]
+    },
+    {
+      "question": "¿Cuál de estos platos es típico de la gastronomía canaria?",
+      "answers": [
+        { "text": "Pulpo a la gallega", "correct": false },
+        { "text": "Papas arrugadas con mojo", "correct": true },
+        { "text": "Gazpacho", "correct": false }
+      ]
+    },
+    {
+      "question": "¿Cuál de estas islas pertenece a la provincia de Santa Cruz de Tenerife?",
+      "answers": [
+        { "text": "Gran Canaria", "correct": false },
+        { "text": "Fuerteventura", "correct": false },
+        { "text": "La Palma", "correct": true }
+      ]
+    },
+    {
+      "question": "¿Qué color tiene el mojo picón más tradicional?",
+      "answers": [
+        { "text": "Verde", "correct": false },
+        { "text": "Rojo", "correct": true },
+        { "text": "Amarillo", "correct": false }
+      ]
+    },
+    {
+      "question": "¿Qué nombre recibe el viento seco y cálido procedente del Sahara que afecta a Canarias?",
+      "answers": [
+        { "text": "Levante", "correct": false },
+        { "text": "Los Alisios", "correct": false },
+        { "text": "La Calima", "correct": true }
+      ]
+    },
+    {
+      "question": "¿Qué escritor canario escribió 'Mararía'?",
+      "answers": [
+        { "text": "Benito Pérez Galdós", "correct": false },
+        { "text": "Alexis Ravelo", "correct": false },
+        { "text": "Rafael Arozarena", "correct": true }
+      ]
+    },
+    {
+      "question": "¿Qué isla canaria es famosa por sus playas de arena negra?",
+      "answers": [
+        { "text": "Tenerife", "correct": true },
+        { "text": "Lanzarote", "correct": false },
+        { "text": "La Graciosa", "correct": false }
+      ]
+    },
+    {
+      "question": "¿Qué animal autóctono es símbolo de Fuerteventura?",
+      "answers": [
+        { "text": "El camello", "correct": false },
+        { "text": "El guirre", "correct": true },
+        { "text": "La cabra", "correct": false }
+      ]
+    },
+    {
+    "question": "¿En qué isla se encuentra el Parque Nacional de Garajonay?",
+    "answers": [
+      { "text": "La Gomera", "correct": true },
+      { "text": "Tenerife", "correct": false },
+      { "text": "Fuerteventura", "correct": false }
+    ]
+    },
+    {
+        "question": "¿Qué volcán entró en erupción en La Palma en 2021?",
+        "answers": [
+          { "text": "Timanfaya", "correct": false },
+          { "text": "Cumbre Vieja", "correct": true },
+          { "text": "Teide", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es la isla más oriental del archipiélago canario?",
+        "answers": [
+          { "text": "Fuerteventura", "correct": false },
+          { "text": "La Graciosa", "correct": false },
+          { "text": "Lanzarote", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué escultor canario diseñó el Auditorio de Tenerife?",
+        "answers": [
+          { "text": "Óscar Domínguez", "correct": false },
+          { "text": "Santiago Calatrava", "correct": true },
+          { "text": "César Manrique", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué escritor canario es considerado uno de los más importantes del siglo XIX?",
+        "answers": [
+          { "text": "Galdós", "correct": true },
+          { "text": "Unamuno", "correct": false },
+          { "text": "Valle-Inclán", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el nombre que se le da al grupo de archipiélagos al que pertenecen las Islas Canarias?",
+        "answers": [
+          { "text": "Baleares", "correct": false },
+          { "text": "Macaronesia", "correct": true },
+          { "text": "Mediterráneo", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla canaria tiene el menor número de habitantes?",
+        "answers": [
+          { "text": "La Graciosa", "correct": true },
+          { "text": "El Hierro", "correct": false },
+          { "text": "La Gomera", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué nombre reciben los carnavales más famosos de Canarias?",
+        "answers": [
+          { "text": "Carnaval del Atlántico", "correct": false },
+          { "text": "Carnaval de Santa Cruz de Tenerife", "correct": true },
+          { "text": "Carnaval de las Islas", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué organización internacional declaró al Teide Patrimonio de la Humanidad?",
+        "answers": [
+          { "text": "UNESCO", "correct": true },
+          { "text": "ONU", "correct": false },
+          { "text": "UE", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama una de las danzas tradicionales más representativas de Canarias?",
+        "answers": [
+          { "text": "Sardana", "correct": false },
+          { "text": "Isas", "correct": true },
+          { "text": "Muñeira", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué animal es típico en los deportes rurales canarios?",
+        "answers": [
+          { "text": "La vaca", "correct": false },
+          { "text": "El camello", "correct": false },
+          { "text": "El burro", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué fruta tropical se cultiva en gran cantidad en Canarias?",
+        "answers": [
+          { "text": "Plátano", "correct": true },
+          { "text": "Mango", "correct": false },
+          { "text": "Papaya", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué personaje histórico mandó conquistar las Islas Canarias?",
+        "answers": [
+          { "text": "Carlos V", "correct": false },
+          { "text": "Los Reyes Católicos", "correct": true },
+          { "text": "Felipe II", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el vino dulce típico de Canarias muy apreciado en Europa en el pasado?",
+        "answers": [
+          { "text": "Malvasía", "correct": true },
+          { "text": "Tempranillo", "correct": false },
+          { "text": "Albariño", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué nombre recibe la lucha tradicional canaria?",
+        "answers": [
+          { "text": "Lucha guanche", "correct": false },
+          { "text": "Lucha canaria", "correct": true },
+          { "text": "Lucha isleña", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla canaria alberga Jameos del Agua y la Cueva de los Verdes?",
+        "answers": [
+          { "text": "Fuerteventura", "correct": false },
+          { "text": "Lanzarote", "correct": true },
+          { "text": "La Palma", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla del archipiélago canario fue la última en ser conquistada por los castellanos?",
+        "answers": [
+          { "text": "Tenerife", "correct": true },
+          { "text": "La Palma", "correct": false },
+          { "text": "Gran Canaria", "correct": false }
+        ]
+      }
+    ]
+  }
+  
