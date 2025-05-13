@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9053082713145654571}
   - component: {fileID: 4438989076899697211}
   - component: {fileID: 1667074771304573830}
-  - component: {fileID: 5935048088968881843}
+  - component: {fileID: 7730759131969402246}
   m_Layer: 0
   m_Name: head
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5935048088968881843
+--- !u!114 &7730759131969402246
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,11 +118,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4707130855443761091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: c077e73dc96d1794c824efc934d6e076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
+  NetworkTransformExpanded: 1
   AutoOwnerAuthorityTickOffset: 1
   PositionInterpolationType: 0
   RotationInterpolationType: 0
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 1605959956874083188}
   - component: {fileID: 1990733223632390413}
   - component: {fileID: 1665819138571338914}
-  - component: {fileID: 1523864472221783747}
+  - component: {fileID: 3574557047768185730}
   m_Layer: 0
   m_Name: Rhand
   m_TagString: Untagged
@@ -264,7 +264,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1523864472221783747
+--- !u!114 &3574557047768185730
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,11 +273,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5192462648949234118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: c077e73dc96d1794c824efc934d6e076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
+  NetworkTransformExpanded: 1
   AutoOwnerAuthorityTickOffset: 1
   PositionInterpolationType: 0
   RotationInterpolationType: 0
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 4853554187661235000}
   - component: {fileID: 3830255064738460855}
   - component: {fileID: 2796322889521351317}
-  - component: {fileID: 4537644245644679819}
+  - component: {fileID: 1247391526334826011}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -385,10 +385,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  root: {fileID: 4853554187661235000}
   head: {fileID: 4509398737916622676}
   leftHand: {fileID: 828431287718393071}
   rightHand: {fileID: 4653754149968433336}
---- !u!114 &4537644245644679819
+  meshToDisable: []
+--- !u!114 &1247391526334826011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -397,11 +399,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5368106096087371883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: c077e73dc96d1794c824efc934d6e076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
+  NetworkTransformExpanded: 1
   AutoOwnerAuthorityTickOffset: 1
   PositionInterpolationType: 0
   RotationInterpolationType: 0
@@ -446,7 +448,7 @@ GameObject:
   - component: {fileID: 383128918100079496}
   - component: {fileID: 7524165608809337967}
   - component: {fileID: 2610425577742773127}
-  - component: {fileID: 9097799492914880880}
+  - component: {fileID: 5510530308389450836}
   m_Layer: 0
   m_Name: lhand
   m_TagString: Untagged
@@ -543,7 +545,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9097799492914880880
+--- !u!114 &5510530308389450836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -552,11 +554,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7765318545113796762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: c077e73dc96d1794c824efc934d6e076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
+  NetworkTransformExpanded: 1
   AutoOwnerAuthorityTickOffset: 1
   PositionInterpolationType: 0
   RotationInterpolationType: 0
