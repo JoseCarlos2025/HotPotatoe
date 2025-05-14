@@ -29,12 +29,6 @@ public class GameStartHandleMultiplayer : NetworkBehaviour
 
     void OnGrabbed(SelectEnterEventArgs args)
     {
-        // Transferir ownership
-        NetworkObject netObj = GetComponent<NetworkObject>();
-        if (netObj != null && !netObj.IsOwner && netObj.IsSpawned)
-        {
-            netObj.ChangeOwnership(NetworkManager.Singleton.LocalClientId);
-        }
 
         // Notificar al GameManager
         if (gameManager != null && NetworkManager.Singleton.IsConnectedClient)
