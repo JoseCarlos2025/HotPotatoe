@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using System.Collections;
 
 public class Player : NetworkBehaviour
 {
@@ -7,19 +8,26 @@ public class Player : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsOwner) // Solo el dueño crea su objeto
+        if (IsOwner)
         {
-            SpawnOwnedObjectServerRpc();
+            RequestSpawnOwnedObjectServerRpc();
         }
     }
 
     [ServerRpc]
-    void SpawnOwnedObjectServerRpc(ServerRpcParams rpcParams = default)
+    void RequestSpawnOwnedObjectServerRpc(ServerRpcParams rpcParams = default)
     {
-        Vector3 spawnPosition = transform.position + Vector3.up * 1.5f; // 1.5 unidades sobre el jugador
+        StartCoroutine(SpawnAfterDelay(OwnerClientId));
+    }
+
+    private IEnumerator SpawnAfterDelay(ulong clientId)
+    {
+        yield return new WaitForSeconds(3f); // Espera 3 segundos
+
+        Vector3 spawnPosition = transform.position + Vector3.up * 2f;
         GameObject obj = Instantiate(ownedObjectPrefab, spawnPosition, Quaternion.identity);
 
         var netObj = obj.GetComponent<NetworkObject>();
-        netObj.SpawnWithOwnership(OwnerClientId); // Asigna propiedad al jugador que posee este Player
+        netObj.SpawnWithOwnership(clientId);
     }
 }
