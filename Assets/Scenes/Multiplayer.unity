@@ -908,6 +908,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1909537252}
     - target: {fileID: 3690419378325190868, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
+      propertyPath: Ownership
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3690419378325190868, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2585251696
       objectReference: {fileID: 0}
@@ -951,27 +955,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9007842282644820285, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
-      propertyPath: SyncScaleX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9007842282644820285, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
-      propertyPath: SyncScaleY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9007842282644820285, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
-      propertyPath: SyncScaleZ
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9007842282644820285, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
-      propertyPath: NetworkTransformExpanded
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3011994399167641899, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1626377544}
   m_SourcePrefab: {fileID: 100100000, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
+--- !u!1 &1626377543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3011994399167641899, guid: 0b58925d80addad4bbbc268f3677a6f1, type: 3}
+  m_PrefabInstance: {fileID: 1626377542}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1626377544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626377543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!4 &1692343914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5983728744261813393, guid: 9ac35cbe9607f03438219f5eebf73631, type: 3}
