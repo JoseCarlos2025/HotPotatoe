@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class GameStartHandleMultiplayer : NetworkBehaviour
 {
@@ -29,18 +30,28 @@ public class GameStartHandleMultiplayer : NetworkBehaviour
 
     void OnGrabbed(SelectEnterEventArgs args)
     {
-        if (gameManager != null && NetworkManager.Singleton.IsConnectedClient)
+        if (IsServer)
         {
-            gameManager.RequestStartOrResumeGameServerRpc();
+            var networkObject = GetComponent<NetworkObject>();
+            if (networkObject != null && args.interactorObject is IXRSelectInteractor interactor)
+            {
+                var clientId = interactor.transform.root.GetComponent<NetworkObject>()?.OwnerClientId ?? 0;
+                networkObject.ChangeOwnership(clientId);
+            }
         }
     }
 
     void OnReleased(SelectExitEventArgs args)
     {
-        if (gameManager != null && NetworkManager.Singleton.IsConnectedClient)
+        if (IsServer)
         {
-            gameManager.RequestPauseGameServerRpc();
+            var networkObject = GetComponent<NetworkObject>();
+            if (networkObject != null)
+            {
+                networkObject.RemoveOwnership(); // Vuelve al servidor
+            }
         }
     }
+
 }
 
