@@ -6,43 +6,55 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class GameStartHandleMultiplayer : NetworkBehaviour
 {
     public GameManagerMultiplayer gameManager;
-
     XRGrabInteractable grabInteractable;
 
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
         if (grabInteractable == null)
-        {
             grabInteractable = gameObject.AddComponent<XRGrabInteractable>();
-        }
 
         grabInteractable.selectEntered.AddListener(OnGrabbed);
         grabInteractable.selectExited.AddListener(OnReleased);
+
+        if (gameManager == null)
+            gameManager = FindFirstObjectByType<GameManagerMultiplayer>();
     }
 
     protected new void OnDestroy()
     {
-        grabInteractable.selectEntered.RemoveListener(OnGrabbed);
-        grabInteractable.selectExited.RemoveListener(OnReleased);
+        if (grabInteractable != null)
+        {
+            grabInteractable.selectEntered.RemoveListener(OnGrabbed);
+            grabInteractable.selectExited.RemoveListener(OnReleased);
+        }
     }
 
     void OnGrabbed(SelectEnterEventArgs args)
     {
-
-        // Notificar al GameManager
-        if (gameManager != null && NetworkManager.Singleton.IsConnectedClient)
+        if (NetworkManager.Singleton.IsConnectedClient)
         {
-            gameManager.RequestStartOrResumeGameServerRpc();
+            NotifyGrabServerRpc();
         }
     }
 
     void OnReleased(SelectExitEventArgs args)
     {
-        if (gameManager != null && NetworkManager.Singleton.IsConnectedClient)
+        if (NetworkManager.Singleton.IsConnectedClient)
         {
-            gameManager.RequestPauseGameServerRpc();
+            NotifyReleaseServerRpc();
         }
     }
-}
 
+    [ServerRpc(RequireOwnership = false)]
+    void NotifyGrabServerRpc(ServerRpcParams rpcParams = default)
+    {
+        gameManager?.PlayerGrabbed(rpcParams.Receive.SenderClientId);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void NotifyReleaseServerRpc(ServerRpcParams rpcParams = default)
+    {
+        gameManager?.PlayerReleased(rpcParams.Receive.SenderClientId);
+    }
+}
