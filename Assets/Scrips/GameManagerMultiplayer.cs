@@ -6,15 +6,8 @@ public class GameManagerMultiplayer : NetworkBehaviour
 {
     private HashSet<ulong> grabbingPlayers = new HashSet<ulong>();
 
-    public void StartOrResumeGame()
-    {
-        Debug.Log("Juego iniciado o reanudado.");
-    }
-
-    public void PauseGame()
-    {
-        Debug.Log("Juego en pausa.");
-    }
+    [Header("Referencias")]
+    public QuestionManagerMultiplayer questionManager; // <- Arrastrar en el Inspector
 
     public void PlayerGrabbed(ulong clientId)
     {
@@ -44,6 +37,18 @@ public class GameManagerMultiplayer : NetworkBehaviour
         }
     }
 
+    void StartOrResumeGame()
+    {
+        Debug.Log("✅ Juego iniciado o reanudado.");
+        questionManager.StartQuestions(); // Aquí se le avisa al otro script
+    }
+
+    void PauseGame()
+    {
+        Debug.Log("⏸️ Juego en pausa.");
+        questionManager.PauseQuestions(); // (Opcional)
+    }
+
     [ClientRpc]
     void StartOrResumeGameClientRpc()
     {
@@ -58,5 +63,3 @@ public class GameManagerMultiplayer : NetworkBehaviour
             PauseGame();
     }
 }
-
-

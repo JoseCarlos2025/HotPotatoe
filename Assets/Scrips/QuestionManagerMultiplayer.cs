@@ -167,4 +167,23 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         foreach (var t in answerTexts) t.text = "";
         panelUI.SetActive(true);
     }
+
+    public void StartQuestions()
+    {
+        if (!IsServer) return;
+
+        if (questions == null || questions.Count == 0)
+        {
+            LoadQuestions();
+            ShuffleQuestions();
+        }
+
+        ShowQuestionToCurrentPlayer();
+    }
+
+    public void PauseQuestions()
+    {
+        panelUI.SetActive(false); // Oculta UI si querés al pausar
+    }
+
 }
