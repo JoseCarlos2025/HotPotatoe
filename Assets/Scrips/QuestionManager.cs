@@ -28,12 +28,16 @@ public class QuestionManager : MonoBehaviour
     [Header("UI References")]
     public TMP_Text questionText;
     public Text[] answerTexts;
+    public Button[] answerButtons; // Opcional: asigna los botones si quieres desactivarlos al final
 
     [Header("JSON File")]
     public TextAsset jsonFile;
 
     private List<Question> questions;
     private int currentQuestionIndex = 0;
+
+    public delegate void QuestionAnswered(bool correct);
+    public event QuestionAnswered OnAnswered;
 
     void Start()
     {
@@ -45,7 +49,6 @@ public class QuestionManager : MonoBehaviour
     {
         QuestionData data = JsonUtility.FromJson<QuestionData>(jsonFile.text);
         questions = data.questions;
-
         ShuffleQuestions();
     }
 
@@ -78,18 +81,30 @@ public class QuestionManager : MonoBehaviour
                 answerTexts[i].text = "";
             }
         }
+
+        if (answerButtons != null)
+        {
+            foreach (var b in answerButtons)
+            {
+                b.interactable = true;
+            }
+        }
     }
 
     public void OnAnswerSelected(int index)
     {
         var selectedAnswer = questions[currentQuestionIndex].answers[index];
-        if (selectedAnswer.correct)
+        bool wasCorrect = selectedAnswer.correct;
+
+        Debug.Log(wasCorrect ? "✅ ¡Respuesta correcta!" : "❌ Respuesta incorrecta");
+        OnAnswered?.Invoke(wasCorrect);
+
+        if (answerButtons != null)
         {
-            Debug.Log("✅ ¡Respuesta correcta!");
-        }
-        else
-        {
-            Debug.Log("❌ Respuesta incorrecta");
+            foreach (var b in answerButtons)
+            {
+                b.interactable = false;
+            }
         }
 
         Invoke(nameof(NextQuestion), 1f);
@@ -106,6 +121,27 @@ public class QuestionManager : MonoBehaviour
         {
             questionText.text = "🎉 ¡Cuestionario terminado!";
             foreach (var t in answerTexts) t.text = "";
+        }
+    }
+
+    public void NextQuestionImmediate()
+    {
+        CancelInvoke();
+        NextQuestion();
+    }
+
+    public void ShowGameOverMessage()
+    {
+        CancelInvoke();
+        questionText.text = "💥 ¡La papa explotó! Fin del juego.";
+        foreach (var t in answerTexts) t.text = "";
+
+        if (answerButtons != null)
+        {
+            foreach (var b in answerButtons)
+            {
+                b.interactable = false;
+            }
         }
     }
 }

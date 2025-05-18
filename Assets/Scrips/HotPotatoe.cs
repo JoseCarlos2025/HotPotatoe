@@ -1,24 +1,28 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HotPotato : MonoBehaviour
 {
     public float growRate = 0.2f;
     public float maxScale = 3f;
-    public float timeToExplode = 10f;
+    public float timeToExplode = 60f;
+
     private float timer = 0f;
     private Vector3 initialScale;
+    private bool isPaused = true;
+
+    public delegate void PotatoExploded();
+    public event PotatoExploded OnExploded;
 
     void Start()
     {
         initialScale = transform.localScale;
     }
-
     void Update()
     {
-        timer += Time.deltaTime;
+        if (isPaused) return;
 
-        float scaleFactor = 1 + (timer / timeToExplode) * (maxScale - 1);
-        transform.localScale = initialScale * scaleFactor;
+        timer += Time.deltaTime;
+        UpdateScale();
 
         if (timer >= timeToExplode || transform.localScale.x >= maxScale)
         {
@@ -26,10 +30,26 @@ public class HotPotato : MonoBehaviour
         }
     }
 
+    private void UpdateScale()
+    {
+        float scaleFactor = 1 + (timer / timeToExplode) * (maxScale - 1);
+        transform.localScale = initialScale * scaleFactor;
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+    }
+
     void Explode()
     {
-        Debug.Log("�La papa explot�!");
-
+        Debug.Log("💥 ¡La papa explotó!");
+        OnExploded?.Invoke();
         Destroy(gameObject);
     }
 
@@ -38,5 +58,12 @@ public class HotPotato : MonoBehaviour
         timer = 0f;
         transform.localScale = initialScale;
     }
-}
+    public void AddPenaltyTime(float penaltySeconds)
+    {
+        timer += penaltySeconds;
+        timer = Mathf.Min(timer, timeToExplode);
+        UpdateScale();
+        Debug.Log($"🔥 Penalización aplicada. Tiempo actual: {timer:F1}/{timeToExplode} segundos.");
+    }
 
+}
