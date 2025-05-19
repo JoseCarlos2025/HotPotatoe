@@ -28,7 +28,7 @@ public class QuestionManager : MonoBehaviour
     [Header("UI References")]
     public TMP_Text questionText;
     public Text[] answerTexts;
-    public Button[] answerButtons; // Opcional: asigna los botones si quieres desactivarlos al final
+    public Button[] answerButtons;
 
     [Header("JSON File")]
     public TextAsset jsonFile;
@@ -39,10 +39,12 @@ public class QuestionManager : MonoBehaviour
     public delegate void QuestionAnswered(bool correct);
     public event QuestionAnswered OnAnswered;
 
+    private bool hasGameStarted = false;
+
     void Start()
     {
         LoadQuestions();
-        ShowCurrentQuestion();
+        ShowStartMessage();
     }
 
     void LoadQuestions()
@@ -63,9 +65,9 @@ public class QuestionManager : MonoBehaviour
         }
     }
 
-    void ShowCurrentQuestion()
+    public void ShowCurrentQuestion()
     {
-        if (currentQuestionIndex >= questions.Count) return;
+        if (!hasGameStarted || currentQuestionIndex >= questions.Count) return;
 
         var question = questions[currentQuestionIndex];
         questionText.text = question.question;
@@ -93,6 +95,8 @@ public class QuestionManager : MonoBehaviour
 
     public void OnAnswerSelected(int index)
     {
+        if (!hasGameStarted) return;
+
         var selectedAnswer = questions[currentQuestionIndex].answers[index];
         bool wasCorrect = selectedAnswer.correct;
 
@@ -110,6 +114,14 @@ public class QuestionManager : MonoBehaviour
         Invoke(nameof(NextQuestion), 1f);
     }
 
+    public void StartGame()
+    {
+        hasGameStarted = true;
+        currentQuestionIndex = 0;
+        ShuffleQuestions();
+        ShowCurrentQuestion();
+    }
+
     void NextQuestion()
     {
         currentQuestionIndex++;
@@ -119,8 +131,16 @@ public class QuestionManager : MonoBehaviour
         }
         else
         {
-            questionText.text = "🎉 ¡Cuestionario terminado!";
+            questionText.text = "🎉 ¡Felicidades, has ganado!";
             foreach (var t in answerTexts) t.text = "";
+
+            if (answerButtons != null)
+            {
+                foreach (var b in answerButtons)
+                {
+                    b.interactable = false;
+                }
+            }
         }
     }
 
@@ -128,6 +148,20 @@ public class QuestionManager : MonoBehaviour
     {
         CancelInvoke();
         NextQuestion();
+    }
+
+    public void ShowStartMessage()
+    {
+        questionText.text = "🍴 Coge el tenedor para comenzar";
+        foreach (var t in answerTexts) t.text = "";
+
+        if (answerButtons != null)
+        {
+            foreach (var b in answerButtons)
+            {
+                b.interactable = false;
+            }
+        }
     }
 
     public void ShowGameOverMessage()

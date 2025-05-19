@@ -1218,7 +1218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hotPotato: {fileID: 1640822342}
   questionManager: {fileID: 2091494997}
-  penaltySeconds: 10
+  penaltySeconds: 5
 --- !u!4 &1909537249
 Transform:
   m_ObjectHideFlags: 0

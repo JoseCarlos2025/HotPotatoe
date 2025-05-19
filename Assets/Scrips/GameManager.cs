@@ -6,10 +6,10 @@ public class GameManager : MonoBehaviour
     public HotPotato hotPotato;
     public QuestionManager questionManager;
 
-    [Header("Game Settings")]
-    [SerializeField] private float penaltySeconds = 10f; // Tiempo que se suma al fallar
+    private bool isFirstStart = true;
 
-    private bool hasStarted = false;
+    [Header("Game Settings")]
+    [SerializeField] private float penaltySeconds = 10f;
 
     void OnEnable()
     {
@@ -25,64 +25,44 @@ public class GameManager : MonoBehaviour
 
     public void StartOrResumeGame()
     {
-        if (!hasStarted)
+        if (isFirstStart)
         {
-            Debug.Log("🎮 Juego iniciado por primera vez.");
-            hasStarted = true;
-
-            // Instanciar la papa si no existe
-            if (hotPotato != null)
-            {
-                hotPotato.Resume();
-                hotPotato.PassPotato();
-            }
-            else
-            {
-                Debug.LogWarning("⚠️ No hay referencia a una papa activa.");
-            }
+            Debug.Log("Juego iniciado por primera vez.");
+            questionManager.StartGame();
+            hotPotato.StartPotato();
+            isFirstStart = false;
         }
         else
         {
-            Debug.Log("▶️ Reanudando juego.");
-            hotPotato?.Resume();
+            Debug.Log("Juego reanudado.");
+            hotPotato.Resume();
+            hotPotato.PassPotato();
         }
     }
 
     public void PauseGame()
     {
-        Debug.Log("⏸ Juego en pausa.");
+        Debug.Log("Juego en pausa.");
         hotPotato.Pause();
     }
 
     void HandlePotatoExploded()
     {
-        Debug.Log("💥 La papa explotó. Fin del juego.");
-        EndGame();
+        Debug.Log("🔴 La papa explotó. Fin del juego.");
+        questionManager.ShowGameOverMessage();
     }
 
     void HandleQuestionAnswered(bool wasCorrect)
     {
+        Debug.Log($"Respuesta {(wasCorrect ? "correcta ✅" : "incorrecta ❌")}. {(wasCorrect ? "Reiniciando" : "Penalizando")} papa...");
+
         if (wasCorrect)
         {
-            Debug.Log("✅ Respuesta correcta. Reiniciando papa...");
             hotPotato.PassPotato();
         }
         else
         {
-            Debug.Log("❌ Respuesta incorrecta. La papa se calienta...");
             hotPotato.AddPenaltyTime(penaltySeconds);
         }
-    }
-
-    void EndGame()
-    {
-        hotPotato.Pause();
-
-        if (questionManager != null)
-        {
-            questionManager.ShowGameOverMessage();
-        }
-
-        // Aquí podrías agregar lógica para mostrar menú, reiniciar escena, etc.
     }
 }

@@ -17,6 +17,7 @@ public class HotPotato : MonoBehaviour
     {
         initialScale = transform.localScale;
     }
+
     void Update()
     {
         if (isPaused) return;
@@ -46,9 +47,16 @@ public class HotPotato : MonoBehaviour
         isPaused = false;
     }
 
+    public void StartPotato()
+    {
+        isPaused = false;
+        timer = 0f;
+        transform.localScale = initialScale;
+    }
+
     void Explode()
     {
-        Debug.Log("💥 ¡La papa explotó!");
+        Debug.Log("¡La papa explotó!");
         OnExploded?.Invoke();
         Destroy(gameObject);
     }
@@ -58,6 +66,7 @@ public class HotPotato : MonoBehaviour
         timer = 0f;
         transform.localScale = initialScale;
     }
+
     public void AddPenaltyTime(float penaltySeconds)
     {
         timer += penaltySeconds;
@@ -65,5 +74,4 @@ public class HotPotato : MonoBehaviour
         UpdateScale();
         Debug.Log($"🔥 Penalización aplicada. Tiempo actual: {timer:F1}/{timeToExplode} segundos.");
     }
-
 }
