@@ -40,6 +40,9 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     private static List<ulong> activePlayers = new();
     private static int currentPlayerIndex = 0;
 
+    private bool isMyTurn = false;
+    private bool questionsStarted = false;
+
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
@@ -51,9 +54,8 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
                 activePlayers.Add(client.ClientId);
             }
 
-            LoadQuestions();
-            ShuffleQuestions();
-            ShowQuestionToCurrentPlayer();
+            // NO EMPIEZA AUTOMÁTICAMENTE
+            // Se llamará a StartQuestions() manualmente desde GameManager
         }
     }
 
@@ -95,7 +97,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     [ClientRpc]
     void UpdateClientQuestionClientRpc(int questionIndex, ulong targetClientId)
     {
-        bool isMyTurn = NetworkManager.Singleton.LocalClientId == targetClientId;
+        isMyTurn = NetworkManager.Singleton.LocalClientId == targetClientId;
         panelUI.SetActive(isMyTurn);
 
         if (!isMyTurn) return;
@@ -114,7 +116,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     public void OnAnswerSelected(int index)
     {
-        if (!IsOwner || !panelUI.activeSelf) return;
+        if (!IsOwner || !isMyTurn || !panelUI.activeSelf) return;
 
         var question = questions[currentQuestionIndex];
         bool correct = question.answers[index].correct;
@@ -147,15 +149,9 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     [ClientRpc]
     void DeclareWinnerClientRpc(ulong winnerId)
     {
-        if (NetworkManager.Singleton.LocalClientId == winnerId)
-        {
-            questionText.text = "🏆 ¡Ganaste!";
-        }
-        else
-        {
-            questionText.text = "😵 Has sido eliminado.";
-        }
+        bool isWinner = NetworkManager.Singleton.LocalClientId == winnerId;
 
+        questionText.text = isWinner ? "🏆 ¡Ganaste!" : "😵 Has sido eliminado.";
         foreach (var t in answerTexts) t.text = "";
         panelUI.SetActive(true);
     }
@@ -168,9 +164,12 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         panelUI.SetActive(true);
     }
 
+    // ✅ Llamado por el GameManager cuando todos tienen tenedor
     public void StartQuestions()
     {
-        if (!IsServer) return;
+        if (!IsServer || questionsStarted) return;
+
+        questionsStarted = true;
 
         if (questions == null || questions.Count == 0)
         {
@@ -181,9 +180,50 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         ShowQuestionToCurrentPlayer();
     }
 
+    // ✅ Llamado por el GameManager si se quiere pausar el juego
     public void PauseQuestions()
     {
-        panelUI.SetActive(false); // Oculta UI si querés al pausar
+        panelUI.SetActive(false);
     }
 
+    // ✅ (Opcional) Reinicia todo para volver a empezar
+    public void ResetQuestions()
+    {
+        if (!IsServer) return;
+
+        currentQuestionIndex = 0;
+        currentPlayerIndex = 0;
+        questionsStarted = false;
+
+        activePlayers.Clear();
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            activePlayers.Add(client.ClientId);
+        }
+
+        LoadQuestions();
+        ShuffleQuestions();
+        panelUI.SetActive(false);
+    }
+
+    // ✅ Hace que el panel mire al jugador (Canvas en World Space)
+    void Update()
+    {
+        if (!isMyTurn || !panelUI.activeSelf) return;
+
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        Vector3 direction = cam.transform.position - panelUI.transform.position;
+        direction.y = 0; // Evita inclinación vertical
+        panelUI.transform.rotation = Quaternion.LookRotation(direction);
+
+        // (Opcional) Si quieres que se mueva delante del jugador:
+        /*
+        Vector3 targetPosition = cam.transform.position + cam.transform.forward * 2f;
+        targetPosition.y = cam.transform.position.y;
+        panelUI.transform.position = Vector3.Lerp(panelUI.transform.position, targetPosition, Time.deltaTime * 5f);
+        panelUI.transform.rotation = Quaternion.LookRotation(cam.transform.position - panelUI.transform.position);
+        */
+    }
 }
