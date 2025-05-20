@@ -10,21 +10,22 @@ public class Player : NetworkBehaviour
     {
         if (IsOwner)
         {
-            RequestSpawnOwnedObjectServerRpc();
+            // Calcula localmente la posición a la izquierda del jugador
+            Vector3 spawnPos = transform.position - transform.right * 2f;
+            RequestSpawnOwnedObjectServerRpc(spawnPos);
         }
     }
 
     [ServerRpc]
-    void RequestSpawnOwnedObjectServerRpc(ServerRpcParams rpcParams = default)
+    void RequestSpawnOwnedObjectServerRpc(Vector3 spawnPosition, ServerRpcParams rpcParams = default)
     {
-        StartCoroutine(SpawnAfterDelay(OwnerClientId));
+        StartCoroutine(SpawnAfterDelay(OwnerClientId, spawnPosition));
     }
 
-    private IEnumerator SpawnAfterDelay(ulong clientId)
+    private IEnumerator SpawnAfterDelay(ulong clientId, Vector3 spawnPosition)
     {
-        yield return new WaitForSeconds(10f); 
+        yield return new WaitForSeconds(3f); // Espera 3 segundos
 
-        Vector3 spawnPosition = transform.position + Vector3.right * 2f;
         GameObject obj = Instantiate(ownedObjectPrefab, spawnPosition, Quaternion.identity);
 
         var netObj = obj.GetComponent<NetworkObject>();
