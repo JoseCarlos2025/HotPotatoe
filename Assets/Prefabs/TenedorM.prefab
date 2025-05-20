@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 8063244820452068098}
   - component: {fileID: 3677575169341815626}
   - component: {fileID: 2261748985387865485}
-  - component: {fileID: 3690419378325190868}
+  - component: {fileID: 2275651133821765607}
   - component: {fileID: 3545256143326373191}
   - component: {fileID: 6102473331004366651}
   m_Layer: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
---- !u!114 &3690419378325190868
+--- !u!114 &2275651133821765607
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,14 +317,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1006025845
-  InScenePlacedSourceGlobalObjectIdHash: 1006025845
+  GlobalObjectIdHash: 1462322964
+  InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
+  SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -387,7 +387,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  SwitchTransformSpaceWhenParented: 1
+  SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
 --- !u!1 &6956710613259462751
