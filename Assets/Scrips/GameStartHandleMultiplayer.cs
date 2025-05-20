@@ -8,6 +8,10 @@ public class GameStartHandleMultiplayer : NetworkBehaviour
     public GameManagerMultiplayer gameManager;
     XRGrabInteractable grabInteractable;
 
+    private void Start()
+    {
+        gameManager = FindFirstObjectByType<GameManagerMultiplayer>();
+    }
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
