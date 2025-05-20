@@ -24,7 +24,7 @@ public class Player : NetworkBehaviour
     {
         yield return new WaitForSeconds(3f); // Espera 3 segundos
 
-        Vector3 spawnPosition = transform.position - transform.right * 2f;
+        Vector3 spawnPosition = transform.position + Vector3.up * 2f;
         GameObject obj = Instantiate(ownedObjectPrefab, spawnPosition, Quaternion.identity);
 
         var netObj = obj.GetComponent<NetworkObject>();
