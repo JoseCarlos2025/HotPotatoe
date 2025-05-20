@@ -1,106 +1,99 @@
 ﻿using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using Unity.Netcode;
+using UnityEngine.UI;
+using TMPro;
 using System.Collections.Generic;
-
-[System.Serializable]
-public class AnswerM
-{
-    public string text;
-    public bool correct;
-}
-
-[System.Serializable]
-public class QuestionM
-{
-    public string question;
-    public List<AnswerM> answers;
-}
-
-[System.Serializable]
-public class QuestionDataM
-{
-    public List<QuestionM> questions;
-}
 
 public class QuestionManagerMultiplayer : NetworkBehaviour
 {
-    [Header("UI")]
+    [System.Serializable]
+    public class Answer
+    {
+        public string text;
+        public bool correct;
+    }
+
+    [System.Serializable]
+    public class Question
+    {
+        public string question;
+        public List<Answer> answers;
+    }
+
+    [System.Serializable]
+    public class QuestionDataM
+    {
+        public List<Question> questions;
+    }
+
+    public TextAsset jsonFile;
     public TMP_Text questionText;
-    public Text[] answerTexts;
+    public TMP_Text[] answerTexts;
     public GameObject panelUI;
 
-    [Header("JSON File")]
-    public TextAsset jsonFile;
-
-    private List<QuestionM> questions;
+    private List<Question> questions;
     private int currentQuestionIndex = 0;
-
-    private static List<ulong> activePlayers = new();
-    private static int currentPlayerIndex = 0;
-
     private bool isMyTurn = false;
-    private bool questionsStarted = false;
 
-    public override void OnNetworkSpawn()
+    private List<ulong> activePlayers = new List<ulong>();
+    private int currentPlayerIndex = 0;
+
+    public void StartQuestions()
     {
-        if (!IsServer) return;
-
-        if (activePlayers.Count == 0)
+        if (questions == null || questions.Count == 0)
         {
-            foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
-            {
-                activePlayers.Add(client.ClientId);
-            }
-
-            // NO EMPIEZA AUTOMÁTICAMENTE
-            // Se llamará a StartQuestions() manualmente desde GameManager
+            LoadQuestions();
+            ShuffleQuestions();
         }
+
+        activePlayers.Clear();
+        foreach (var client in NetworkManager.Singleton.ConnectedClients)
+            activePlayers.Add(client.Key);
+
+        currentQuestionIndex = 0;
+        currentPlayerIndex = 0;
+
+        ShowQuestionToCurrentPlayer();
     }
 
     void LoadQuestions()
     {
         var data = JsonUtility.FromJson<QuestionDataM>(jsonFile.text);
         questions = data.questions;
+        Debug.Log("📋 Preguntas cargadas: " + questions.Count);
     }
 
     void ShuffleQuestions()
     {
-        for (int i = 0; i < questions.Count; i++)
+        for (int i = questions.Count - 1; i > 0; i--)
         {
-            int rand = Random.Range(i, questions.Count);
+            int j = Random.Range(0, i + 1);
             var temp = questions[i];
-            questions[i] = questions[rand];
-            questions[rand] = temp;
+            questions[i] = questions[j];
+            questions[j] = temp;
         }
     }
 
     void ShowQuestionToCurrentPlayer()
     {
-        if (activePlayers.Count <= 1)
-        {
-            DeclareWinnerClientRpc(activePlayers[0]);
-            return;
-        }
-
-        if (currentQuestionIndex >= questions.Count)
-        {
-            EndGameClientRpc();
-            return;
-        }
-
         ulong currentPlayerId = activePlayers[currentPlayerIndex];
-        UpdateClientQuestionClientRpc(currentQuestionIndex, currentPlayerId);
+
+        var rpcParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new[] { currentPlayerId }
+            }
+        };
+
+        UpdateClientQuestionClientRpc(currentQuestionIndex, rpcParams);
     }
 
     [ClientRpc]
-    void UpdateClientQuestionClientRpc(int questionIndex, ulong targetClientId)
+    void UpdateClientQuestionClientRpc(int questionIndex, ClientRpcParams rpcParams = default)
     {
-        isMyTurn = NetworkManager.Singleton.LocalClientId == targetClientId;
-        panelUI.SetActive(isMyTurn);
-
-        if (!isMyTurn) return;
+        isMyTurn = true;
+        panelUI.SetActive(true);
 
         var q = questions[questionIndex];
         questionText.text = q.question;
@@ -114,116 +107,36 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         }
     }
 
-    public void OnAnswerSelected(int index)
+    public void SelectAnswer(int index)
     {
-        if (!IsOwner || !isMyTurn || !panelUI.activeSelf) return;
+        if (!isMyTurn) return;
 
-        var question = questions[currentQuestionIndex];
-        bool correct = question.answers[index].correct;
+        var answer = questions[currentQuestionIndex].answers[index];
 
-        SubmitAnswerServerRpc(correct);
+        if (answer.correct)
+            Debug.Log("✅ Correcto");
+        else
+            Debug.Log("❌ Incorrecto");
+
+        isMyTurn = false;
         panelUI.SetActive(false);
-    }
 
-    [ServerRpc(RequireOwnership = false)]
-    void SubmitAnswerServerRpc(bool correct)
-    {
-        if (!correct)
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex >= questions.Count)
         {
-            ulong eliminated = activePlayers[currentPlayerIndex];
-            Debug.Log("❌ Eliminado: " + eliminated);
-            activePlayers.RemoveAt(currentPlayerIndex);
-
-            if (currentPlayerIndex >= activePlayers.Count)
-                currentPlayerIndex = 0;
+            Debug.Log("🏁 Juego terminado");
         }
         else
         {
             currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.Count;
+            if (IsServer)
+                ShowQuestionToCurrentPlayer();
         }
-
-        currentQuestionIndex++;
-        ShowQuestionToCurrentPlayer();
     }
 
-    [ClientRpc]
-    void DeclareWinnerClientRpc(ulong winnerId)
-    {
-        bool isWinner = NetworkManager.Singleton.LocalClientId == winnerId;
-
-        questionText.text = isWinner ? "🏆 ¡Ganaste!" : "😵 Has sido eliminado.";
-        foreach (var t in answerTexts) t.text = "";
-        panelUI.SetActive(true);
-    }
-
-    [ClientRpc]
-    void EndGameClientRpc()
-    {
-        questionText.text = "✅ Fin del juego: Sin preguntas.";
-        foreach (var t in answerTexts) t.text = "";
-        panelUI.SetActive(true);
-    }
-
-    // ✅ Llamado por el GameManager cuando todos tienen tenedor
-    public void StartQuestions()
-    {
-        if (!IsServer || questionsStarted) return;
-
-        questionsStarted = true;
-
-        if (questions == null || questions.Count == 0)
-        {
-            LoadQuestions();
-            ShuffleQuestions();
-        }
-
-        ShowQuestionToCurrentPlayer();
-    }
-
-    // ✅ Llamado por el GameManager si se quiere pausar el juego
     public void PauseQuestions()
     {
         panelUI.SetActive(false);
-    }
-
-    // ✅ (Opcional) Reinicia todo para volver a empezar
-    public void ResetQuestions()
-    {
-        if (!IsServer) return;
-
-        currentQuestionIndex = 0;
-        currentPlayerIndex = 0;
-        questionsStarted = false;
-
-        activePlayers.Clear();
-        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
-        {
-            activePlayers.Add(client.ClientId);
-        }
-
-        LoadQuestions();
-        ShuffleQuestions();
-        panelUI.SetActive(false);
-    }
-
-    // ✅ Hace que el panel mire al jugador (Canvas en World Space)
-    void Update()
-    {
-        if (!isMyTurn || !panelUI.activeSelf) return;
-
-        Camera cam = Camera.main;
-        if (cam == null) return;
-
-        Vector3 direction = cam.transform.position - panelUI.transform.position;
-        direction.y = 0; // Evita inclinación vertical
-        panelUI.transform.rotation = Quaternion.LookRotation(direction);
-
-        // (Opcional) Si quieres que se mueva delante del jugador:
-        /*
-        Vector3 targetPosition = cam.transform.position + cam.transform.forward * 2f;
-        targetPosition.y = cam.transform.position.y;
-        panelUI.transform.position = Vector3.Lerp(panelUI.transform.position, targetPosition, Time.deltaTime * 5f);
-        panelUI.transform.rotation = Quaternion.LookRotation(cam.transform.position - panelUI.transform.position);
-        */
     }
 }
