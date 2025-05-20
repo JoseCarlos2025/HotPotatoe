@@ -22,9 +22,9 @@ public class Player : NetworkBehaviour
 
     private IEnumerator SpawnAfterDelay(ulong clientId)
     {
-        yield return new WaitForSeconds(3f); // Espera 3 segundos
+        yield return new WaitForSeconds(10f); 
 
-        Vector3 spawnPosition = transform.position + Vector3.up * 2f;
+        Vector3 spawnPosition = transform.position + Vector3.right * 2f;
         GameObject obj = Instantiate(ownedObjectPrefab, spawnPosition, Quaternion.identity);
 
         var netObj = obj.GetComponent<NetworkObject>();
