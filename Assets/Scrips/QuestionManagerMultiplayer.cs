@@ -86,11 +86,11 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             }
         };
 
-        UpdateClientQuestionClientRpc(currentQuestionIndex, rpcParams);
+        UpdateClientQuestionClientRpc(currentQuestionIndex, currentPlayerIndex, rpcParams);
     }
 
     [ClientRpc]
-    void UpdateClientQuestionClientRpc(int questionIndex, ClientRpcParams rpcParams = default)
+    void UpdateClientQuestionClientRpc(int questionIndex, int playerIndex, ClientRpcParams rpcParams = default)
     {
         isMyTurn = true;
         panelUI.SetActive(true);
@@ -100,18 +100,29 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
         for (int i = 0; i < answerTexts.Length; i++)
         {
+            answerTexts[i].transform.parent.gameObject.SetActive(false);
+        }
+
+        int baseIndex = playerIndex * 3;
+
+        for (int i = 0; i < 3; i++)
+        {
+            int idx = baseIndex + i;
+
             if (i < q.answers.Count)
-                answerTexts[i].text = q.answers[i].text;
-            else
-                answerTexts[i].text = "";
+            {
+                answerTexts[idx].text = q.answers[i].text;
+                answerTexts[idx].transform.parent.gameObject.SetActive(true);
+            }
         }
     }
 
-    public void SelectAnswer(int index)
+    public void SelectAnswer(int localIndex)
     {
         if (!isMyTurn) return;
 
-        var answer = questions[currentQuestionIndex].answers[index];
+        int globalIndex = currentPlayerIndex * 3 + localIndex;
+        var answer = questions[currentQuestionIndex].answers[localIndex];
 
         if (answer.correct)
             Debug.Log("✅ Correcto");
