@@ -1,0 +1,1 @@
+C:\Users\Ayonay\Documents\GitHub\HotPotatoe\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\1v4p3q5p\obj\arm64-v8a
