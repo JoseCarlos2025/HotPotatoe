@@ -32,22 +32,48 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     public GameObject panelUI;
 
     private List<Question> questions;
+
+    // Estado de la partida sincronizado en el servidor
+    private List<ulong> activePlayers = new List<ulong>();
     private int currentQuestionIndex = 0;
+    private int currentPlayerIndex = 0;
+
+    // Flags locales
     private bool isMyTurn = false;
     private int myPlayerIndex = -1;
 
-    private List<ulong> activePlayers = new List<ulong>();
-    private int currentPlayerIndex = 0;
+    private void Awake()
+    {
+        // Validar referencias
+        if (jsonFile == null) Debug.LogError("JsonFile no asignado.");
+        if (questionText == null) Debug.LogError("QuestionText no asignado.");
+        if (answerTexts == null || answerTexts.Length == 0) Debug.LogError("AnswerTexts no asignados.");
+        if (panelUI == null) Debug.LogError("PanelUI no asignado.");
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        // En todos los clientes y servidor cargamos las preguntas
+        LoadQuestions();
+        ShuffleQuestions();
+        panelUI.SetActive(false);
+    }
 
     public void StartQuestions()
     {
-        if (questions == null || questions.Count == 0)
+        if (!IsServer)
         {
-            LoadQuestions();
-            ShuffleQuestions();
+            Debug.LogWarning("Solo el servidor puede iniciar las preguntas.");
+            return;
         }
 
-        // Limpiar jugadores conectados
+        if (questions == null || questions.Count == 0)
+        {
+            Debug.LogError("No hay preguntas cargadas en el servidor.");
+            return;
+        }
+
+        // Recoger lista de jugadores conectados
         activePlayers.Clear();
         foreach (var client in NetworkManager.Singleton.ConnectedClients)
         {
@@ -68,13 +94,15 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     void LoadQuestions()
     {
+        if (jsonFile == null) return;
         var data = JsonUtility.FromJson<QuestionDataM>(jsonFile.text);
         questions = data.questions;
-        Debug.Log("📋 Preguntas cargadas: " + questions.Count);
+        Debug.Log("📋 Preguntas cargadas: " + (questions != null ? questions.Count : 0));
     }
 
     void ShuffleQuestions()
     {
+        if (questions == null) return;
         for (int i = questions.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
@@ -86,16 +114,13 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     void ShowQuestionToCurrentPlayer()
     {
-        if (activePlayers.Count == 0) return;
+        if (activePlayers.Count == 0 || currentQuestionIndex >= questions.Count)
+            return;
 
-        ulong currentPlayerId = activePlayers[currentPlayerIndex];
-
+        ulong targetClient = activePlayers[currentPlayerIndex];
         var rpcParams = new ClientRpcParams
         {
-            Send = new ClientRpcSendParams
-            {
-                TargetClientIds = new[] { currentPlayerId }
-            }
+            Send = new ClientRpcSendParams { TargetClientIds = new[] { targetClient } }
         };
 
         UpdateClientQuestionClientRpc(currentQuestionIndex, currentPlayerIndex, rpcParams);
@@ -117,7 +142,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             answerTexts[i].transform.parent.gameObject.SetActive(false);
         }
 
-        // Activar solo los botones del jugador actual
+        // Mostrar solo los tres botones del jugador actual
         int baseIndex = playerIndex * 3;
         for (int i = 0; i < 3 && i < q.answers.Count; i++)
         {
@@ -135,38 +160,47 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         if (!isMyTurn) return;
 
         int baseIndex = myPlayerIndex * 3;
-        if (buttonIndex < baseIndex || buttonIndex >= baseIndex + 3)
+        int localIndex = buttonIndex - baseIndex;
+        if (localIndex < 0 || localIndex >= 3)
         {
             Debug.LogWarning("🚫 Este botón no pertenece al jugador actual.");
             return;
         }
 
-        int localIndex = buttonIndex - baseIndex;
-        var answer = questions[currentQuestionIndex].answers[localIndex];
-
-        if (answer.correct)
-            Debug.Log("✅ Correcto");
-        else
-            Debug.Log("❌ Incorrecto");
-
+        // Desactivar UI localmente
         isMyTurn = false;
         panelUI.SetActive(false);
 
-        if (IsServer)
-        {
-            currentQuestionIndex++;
+        // Enviar elección al servidor
+        SubmitAnswerServerRpc(localIndex);
+    }
 
-            if (currentQuestionIndex >= questions.Count)
-            {
-                Debug.Log("🏁 Juego terminado");
-            }
-            else
-            {
-                // Avanzar al siguiente jugador real
-                currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.Count;
-                ShowQuestionToCurrentPlayer();
-            }
+    [ServerRpc(RequireOwnership = false)]
+    void SubmitAnswerServerRpc(int answerIndex, ServerRpcParams rpcParams = default)
+    {
+        if (currentQuestionIndex >= questions.Count) return;
+
+        // Validar que sea el jugador correcto
+        ulong clientId = rpcParams.Receive.SenderClientId;
+        if (clientId != activePlayers[currentPlayerIndex])
+        {
+            Debug.LogWarning("Respuesta de jugador no válido.");
+            return;
         }
+
+        var answer = questions[currentQuestionIndex].answers[answerIndex];
+        Debug.Log($"Jugador {clientId} respondió {(answer.correct ? "✅" : "❌")} al índice {answerIndex}");
+
+        // Avanzar al siguiente
+        currentQuestionIndex++;
+        if (currentQuestionIndex >= questions.Count)
+        {
+            Debug.Log("🏁 Juego terminado");
+            return;
+        }
+
+        currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.Count;
+        ShowQuestionToCurrentPlayer();
     }
 
     public void PauseQuestions()
