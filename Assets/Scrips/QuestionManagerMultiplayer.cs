@@ -28,7 +28,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     public TextAsset jsonFile;
     public TMP_Text questionText;
-    public TMP_Text[] answerTexts;
+    public TMP_Text[] answerTexts; // Debe tener 12 entradas (0-11)
     public GameObject panelUI;
 
     private List<Question> questions;
@@ -98,69 +98,49 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         var q = questions[questionIndex];
         questionText.text = q.question;
 
-        ShowAnswersForPlayer(playerIndex, q);
-    }
+        // Oculta todos los botones primero
+        for (int i = 0; i < answerTexts.Length; i++)
+        {
+            answerTexts[i].transform.parent.gameObject.SetActive(false);
+        }
 
-    void ShowAnswersForPlayer(int playerIndex, Question question)
-    {
-        // Oculta todos los botones
-        foreach (var t in answerTexts)
-            t.transform.parent.gameObject.SetActive(false);
-
+        // Muestra solo los 3 botones del jugador activo
         int baseIndex = playerIndex * 3;
 
         for (int i = 0; i < 3; i++)
         {
             int idx = baseIndex + i;
-            if (idx < answerTexts.Length && i < question.answers.Count)
+
+            if (i < q.answers.Count && idx < answerTexts.Length)
             {
-                answerTexts[idx].text = question.answers[i].text;
+                answerTexts[idx].text = q.answers[i].text;
                 answerTexts[idx].transform.parent.gameObject.SetActive(true);
             }
         }
     }
 
-    public void SelectAnswer(int localIndex)
+    public void SelectAnswer(int buttonIndex)
     {
         if (!isMyTurn) return;
 
-        // Verifica que el botón pulsado corresponde al jugador actual
         int baseIndex = currentPlayerIndex * 3;
-        if (localIndex < 0 || localIndex >= 3)
+
+        if (buttonIndex < baseIndex || buttonIndex >= baseIndex + 3)
         {
-            Debug.LogWarning("⚠️ Botón no válido para este jugador.");
+            Debug.LogWarning($"⚠️ Botón {buttonIndex} no corresponde al jugador actual (rango válido: {baseIndex}-{baseIndex + 2})");
             return;
         }
 
-        SubmitAnswerServerRpc(localIndex);
-        isMyTurn = false;
-        panelUI.SetActive(false);
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    void SubmitAnswerServerRpc(int localIndex, ServerRpcParams serverRpcParams = default)
-    {
-        ulong senderId = serverRpcParams.Receive.SenderClientId;
-
-        if (senderId != activePlayers[currentPlayerIndex])
-        {
-            Debug.LogWarning($"⚠️ Jugador {senderId} intentó responder fuera de turno.");
-            return;
-        }
-
-        var question = questions[currentQuestionIndex];
-        if (localIndex >= question.answers.Count)
-        {
-            Debug.LogWarning("⚠️ Índice de respuesta fuera de rango.");
-            return;
-        }
-
-        var answer = question.answers[localIndex];
+        int localIndex = buttonIndex - baseIndex;
+        var answer = questions[currentQuestionIndex].answers[localIndex];
 
         if (answer.correct)
-            Debug.Log($"✅ Jugador {senderId} respondió correctamente.");
+            Debug.Log("✅ Correcto");
         else
-            Debug.Log($"❌ Jugador {senderId} respondió incorrectamente.");
+            Debug.Log("❌ Incorrecto");
+
+        isMyTurn = false;
+        panelUI.SetActive(false);
 
         currentQuestionIndex++;
 
@@ -171,7 +151,8 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         else
         {
             currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.Count;
-            ShowQuestionToCurrentPlayer();
+            if (IsServer)
+                ShowQuestionToCurrentPlayer();
         }
     }
 
