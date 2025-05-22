@@ -34,10 +34,10 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     private List<Question> questions;
     private int currentQuestionIndex = 0;
     private bool isMyTurn = false;
+    private int myPlayerIndex = -1;
 
     private List<ulong> activePlayers = new List<ulong>();
     private int currentPlayerIndex = 0;
-    private ulong localClientId;
 
     public void StartQuestions()
     {
@@ -47,13 +47,16 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             ShuffleQuestions();
         }
 
+        // Limpiar jugadores conectados
         activePlayers.Clear();
         foreach (var client in NetworkManager.Singleton.ConnectedClients)
-            activePlayers.Add(client.Key);
-
-        if (activePlayers.Count < 2 || activePlayers.Count > 4)
         {
-            Debug.LogWarning("🚫 El número de jugadores debe estar entre 2 y 4.");
+            activePlayers.Add(client.Key);
+        }
+
+        if (activePlayers.Count < 2)
+        {
+            Debug.LogWarning("🚫 Se requieren al menos 2 jugadores.");
             return;
         }
 
@@ -83,8 +86,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     void ShowQuestionToCurrentPlayer()
     {
-        if (currentPlayerIndex >= activePlayers.Count)
-            currentPlayerIndex = 0;
+        if (activePlayers.Count == 0) return;
 
         ulong currentPlayerId = activePlayers[currentPlayerIndex];
 
@@ -103,18 +105,19 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     void UpdateClientQuestionClientRpc(int questionIndex, int playerIndex, ClientRpcParams rpcParams = default)
     {
         isMyTurn = true;
-        panelUI.SetActive(true);
+        myPlayerIndex = playerIndex;
 
+        panelUI.SetActive(true);
         var q = questions[questionIndex];
         questionText.text = q.question;
 
-        // Desactivar todos los botones
+        // Ocultar todos los botones
         for (int i = 0; i < answerTexts.Length; i++)
         {
             answerTexts[i].transform.parent.gameObject.SetActive(false);
         }
 
-        // Mostrar solo los botones del jugador actual
+        // Activar solo los botones del jugador actual
         int baseIndex = playerIndex * 3;
         for (int i = 0; i < 3 && i < q.answers.Count; i++)
         {
@@ -131,8 +134,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     {
         if (!isMyTurn) return;
 
-        // Determinar si este botón pertenece al jugador actual
-        int baseIndex = currentPlayerIndex * 3;
+        int baseIndex = myPlayerIndex * 3;
         if (buttonIndex < baseIndex || buttonIndex >= baseIndex + 3)
         {
             Debug.LogWarning("🚫 Este botón no pertenece al jugador actual.");
@@ -150,17 +152,20 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         isMyTurn = false;
         panelUI.SetActive(false);
 
-        currentQuestionIndex++;
+        if (IsServer)
+        {
+            currentQuestionIndex++;
 
-        if (currentQuestionIndex >= questions.Count)
-        {
-            Debug.Log("🏁 Juego terminado");
-        }
-        else
-        {
-            currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.Count;
-            if (IsServer)
+            if (currentQuestionIndex >= questions.Count)
+            {
+                Debug.Log("🏁 Juego terminado");
+            }
+            else
+            {
+                // Avanzar al siguiente jugador real
+                currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.Count;
                 ShowQuestionToCurrentPlayer();
+            }
         }
     }
 
@@ -169,4 +174,3 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         panelUI.SetActive(false);
     }
 }
-
