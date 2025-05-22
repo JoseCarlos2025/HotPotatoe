@@ -26,6 +26,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         public List<Question> questions;
     }
 
+    [Header("UI References")]
     public TextAsset jsonFile;
     public TMP_Text questionText;
     public TMP_Text[] answerTexts;
@@ -33,8 +34,10 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     private List<Question> questions;
 
-    // Estado de la partida sincronizado en el servidor
+    // Jugadores conectados y en juego
     private List<ulong> activePlayers = new List<ulong>();
+    private List<ulong> alivePlayers = new List<ulong>();
+
     private int currentQuestionIndex = 0;
     private int currentPlayerIndex = 0;
 
@@ -44,7 +47,6 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     private void Awake()
     {
-        // Validar referencias
         if (jsonFile == null) Debug.LogError("JsonFile no asignado.");
         if (questionText == null) Debug.LogError("QuestionText no asignado.");
         if (answerTexts == null || answerTexts.Length == 0) Debug.LogError("AnswerTexts no asignados.");
@@ -53,7 +55,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        // En todos los clientes y servidor cargamos las preguntas
+        // Carga preguntas en servidor y clientes
         LoadQuestions();
         ShuffleQuestions();
         panelUI.SetActive(false);
@@ -73,7 +75,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             return;
         }
 
-        // Recoger lista de jugadores conectados
+        // Recopilar jugadores conectados
         activePlayers.Clear();
         foreach (var client in NetworkManager.Singleton.ConnectedClients)
         {
@@ -86,6 +88,9 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             return;
         }
 
+        // Inicializar lista de jugadores vivos
+        alivePlayers = new List<ulong>(activePlayers);
+
         currentQuestionIndex = 0;
         currentPlayerIndex = 0;
 
@@ -96,7 +101,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     {
         if (jsonFile == null) return;
         var data = JsonUtility.FromJson<QuestionDataM>(jsonFile.text);
-        questions = data.questions;
+        questions = data?.questions;
         Debug.Log("📋 Preguntas cargadas: " + (questions != null ? questions.Count : 0));
     }
 
@@ -106,18 +111,16 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         for (int i = questions.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
-            var temp = questions[i];
-            questions[i] = questions[j];
-            questions[j] = temp;
+            (questions[i], questions[j]) = (questions[j], questions[i]);
         }
     }
 
     void ShowQuestionToCurrentPlayer()
     {
-        if (activePlayers.Count == 0 || currentQuestionIndex >= questions.Count)
+        if (alivePlayers.Count <= 1 || currentQuestionIndex >= questions.Count)
             return;
 
-        ulong targetClient = activePlayers[currentPlayerIndex];
+        ulong targetClient = alivePlayers[currentPlayerIndex];
         var rpcParams = new ClientRpcParams
         {
             Send = new ClientRpcSendParams { TargetClientIds = new[] { targetClient } }
@@ -137,10 +140,8 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         questionText.text = q.question;
 
         // Ocultar todos los botones
-        for (int i = 0; i < answerTexts.Length; i++)
-        {
-            answerTexts[i].transform.parent.gameObject.SetActive(false);
-        }
+        foreach (var txt in answerTexts)
+            txt.transform.parent.gameObject.SetActive(false);
 
         // Mostrar solo los tres botones del jugador actual
         int baseIndex = playerIndex * 3;
@@ -178,29 +179,63 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void SubmitAnswerServerRpc(int answerIndex, ServerRpcParams rpcParams = default)
     {
-        if (currentQuestionIndex >= questions.Count) return;
+        if (currentQuestionIndex >= questions.Count || alivePlayers.Count <= 1)
+            return;
 
-        // Validar que sea el jugador correcto
         ulong clientId = rpcParams.Receive.SenderClientId;
-        if (clientId != activePlayers[currentPlayerIndex])
+        if (clientId != alivePlayers[currentPlayerIndex])
         {
             Debug.LogWarning("Respuesta de jugador no válido.");
             return;
         }
 
         var answer = questions[currentQuestionIndex].answers[answerIndex];
-        Debug.Log($"Jugador {clientId} respondió {(answer.correct ? "✅" : "❌")} al índice {answerIndex}");
+        bool correct = answer.correct;
 
-        // Avanzar al siguiente
-        currentQuestionIndex++;
-        if (currentQuestionIndex >= questions.Count)
+        if (!correct)
         {
-            Debug.Log("🏁 Juego terminado");
+            Debug.Log($"❌ Jugador {clientId} ha sido eliminado.");
+            alivePlayers.Remove(clientId);
+        }
+        else
+        {
+            Debug.Log($"✅ Jugador {clientId} respondió correctamente.");
+        }
+
+        // Verificar fin de la partida
+        if (alivePlayers.Count == 1)
+        {
+            ulong winner = alivePlayers[0];
+            GameOverClientRpc(winner);
+            Debug.Log($"🏆 Jugador {winner} gana la partida.");
             return;
         }
 
-        currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.Count;
+        // Avanzar pregunta
+        currentQuestionIndex++;
+        if (currentQuestionIndex >= questions.Count)
+        {
+            Debug.Log("📘 Fin de preguntas. Empate o varios supervivientes.");
+            return;
+        }
+
+        // Avanzar al siguiente jugador vivo
+        NextAlivePlayer();
         ShowQuestionToCurrentPlayer();
+    }
+
+    void NextAlivePlayer()
+    {
+        if (alivePlayers.Count == 0) return;
+        currentPlayerIndex = (currentPlayerIndex + 1) % alivePlayers.Count;
+    }
+
+    [ClientRpc]
+    void GameOverClientRpc(ulong winnerClientId)
+    {
+        // Aquí podrías mostrar UI de victoria
+        panelUI.SetActive(false);
+        Debug.Log($"🎉 ¡Jugador {winnerClientId} es el ganador!");
     }
 
     public void PauseQuestions()
