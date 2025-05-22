@@ -69,5 +69,27 @@ public class AudioManager : MonoBehaviour
     {
         AudioManager.instance.PlayMusic("Menu");
     }
+    public void SetMusicVolume(float volume)
+    {
+        if (musicSource != null)
+            musicSource.volume = volume;
+    }
+
+    public void ToggleMusic(bool isOn)
+    {
+        if (musicSource != null)
+        {
+            if (isOn)
+            {
+                if (!musicSource.isPlaying)
+                    musicSource.Play();
+            }
+            else
+            {
+                musicSource.Pause();
+            }
+        }
+    }
+
 }
 
