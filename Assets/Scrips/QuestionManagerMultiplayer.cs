@@ -98,20 +98,23 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         var q = questions[questionIndex];
         questionText.text = q.question;
 
-        for (int i = 0; i < answerTexts.Length; i++)
-        {
-            answerTexts[i].transform.parent.gameObject.SetActive(false);
-        }
+        ShowAnswersForPlayer(playerIndex, q);
+    }
+
+    void ShowAnswersForPlayer(int playerIndex, Question question)
+    {
+        // Oculta todos los botones
+        foreach (var t in answerTexts)
+            t.transform.parent.gameObject.SetActive(false);
 
         int baseIndex = playerIndex * 3;
 
         for (int i = 0; i < 3; i++)
         {
             int idx = baseIndex + i;
-
-            if (i < q.answers.Count)
+            if (idx < answerTexts.Length && i < question.answers.Count)
             {
-                answerTexts[idx].text = q.answers[i].text;
+                answerTexts[idx].text = question.answers[i].text;
                 answerTexts[idx].transform.parent.gameObject.SetActive(true);
             }
         }
@@ -121,16 +124,43 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     {
         if (!isMyTurn) return;
 
-        int globalIndex = currentPlayerIndex * 3 + localIndex;
-        var answer = questions[currentQuestionIndex].answers[localIndex];
+        // Verifica que el botón pulsado corresponde al jugador actual
+        int baseIndex = currentPlayerIndex * 3;
+        if (localIndex < 0 || localIndex >= 3)
+        {
+            Debug.LogWarning("⚠️ Botón no válido para este jugador.");
+            return;
+        }
 
-        if (answer.correct)
-            Debug.Log("✅ Correcto");
-        else
-            Debug.Log("❌ Incorrecto");
-
+        SubmitAnswerServerRpc(localIndex);
         isMyTurn = false;
         panelUI.SetActive(false);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void SubmitAnswerServerRpc(int localIndex, ServerRpcParams serverRpcParams = default)
+    {
+        ulong senderId = serverRpcParams.Receive.SenderClientId;
+
+        if (senderId != activePlayers[currentPlayerIndex])
+        {
+            Debug.LogWarning($"⚠️ Jugador {senderId} intentó responder fuera de turno.");
+            return;
+        }
+
+        var question = questions[currentQuestionIndex];
+        if (localIndex >= question.answers.Count)
+        {
+            Debug.LogWarning("⚠️ Índice de respuesta fuera de rango.");
+            return;
+        }
+
+        var answer = question.answers[localIndex];
+
+        if (answer.correct)
+            Debug.Log($"✅ Jugador {senderId} respondió correctamente.");
+        else
+            Debug.Log($"❌ Jugador {senderId} respondió incorrectamente.");
 
         currentQuestionIndex++;
 
@@ -141,8 +171,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         else
         {
             currentPlayerIndex = (currentPlayerIndex + 1) % activePlayers.Count;
-            if (IsServer)
-                ShowQuestionToCurrentPlayer();
+            ShowQuestionToCurrentPlayer();
         }
     }
 
