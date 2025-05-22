@@ -57,6 +57,7 @@ public class HotPotato : MonoBehaviour
     void Explode()
     {
         Debug.Log("¡La papa explotó!");
+        AudioManager.instance.PlaySFX("explosion");
         OnExploded?.Invoke();
         Destroy(gameObject);
     }
