@@ -41,6 +41,9 @@ public class QuestionManager : MonoBehaviour
 
     private bool hasGameStarted = false;
     private bool isPaused = false;
+    private int correctAnswers = 0;
+    private float gameStartTime;
+    private float gameEndTime;
 
     void Start()
     {
@@ -101,7 +104,12 @@ public class QuestionManager : MonoBehaviour
         var selectedAnswer = questions[currentQuestionIndex].answers[index];
         bool wasCorrect = selectedAnswer.correct;
 
-        Debug.Log(wasCorrect ? "✅ ¡Respuesta correcta!" : "❌ Respuesta incorrecta");
+        if (wasCorrect)
+        {
+            correctAnswers++;
+        }
+
+        Debug.Log(wasCorrect ? "¡Respuesta correcta!" : "Respuesta incorrecta");
         OnAnswered?.Invoke(wasCorrect);
 
         if (answerButtons != null)
@@ -118,7 +126,10 @@ public class QuestionManager : MonoBehaviour
     public void StartGame()
     {
         hasGameStarted = true;
+        isPaused = false;
         currentQuestionIndex = 0;
+        correctAnswers = 0;
+        gameStartTime = Time.time;
         ShuffleQuestions();
         ShowCurrentQuestion();
     }
@@ -132,7 +143,13 @@ public class QuestionManager : MonoBehaviour
         }
         else
         {
-            questionText.text = "🎉 ¡Felicidades, has ganado!";
+            gameEndTime = Time.time;
+            float totalTime = gameEndTime - gameStartTime;
+
+            questionText.text = $"¡Felicidades, has ganado!\n" +
+                                $"Aciertos: {correctAnswers}/{questions.Count}\n" +
+                                $"Tiempo: {totalTime:F1} segundos";
+
             foreach (var t in answerTexts) t.text = "";
 
             if (answerButtons != null)
@@ -153,7 +170,7 @@ public class QuestionManager : MonoBehaviour
 
     public void ShowStartMessage()
     {
-        questionText.text = "🍴 Coge el tenedor para comenzar";
+        questionText.text = "Coge el tenedor para comenzar";
         foreach (var t in answerTexts) t.text = "";
 
         if (answerButtons != null)
@@ -168,7 +185,7 @@ public class QuestionManager : MonoBehaviour
     public void ShowGameOverMessage()
     {
         CancelInvoke();
-        questionText.text = "💥 ¡La papa explotó! Fin del juego.";
+        questionText.text = "¡La papa explotó! Fin del juego.";
         foreach (var t in answerTexts) t.text = "";
 
         if (answerButtons != null)

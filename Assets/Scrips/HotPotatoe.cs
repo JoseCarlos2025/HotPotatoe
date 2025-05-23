@@ -73,6 +73,6 @@ public class HotPotato : MonoBehaviour
         timer += penaltySeconds;
         timer = Mathf.Min(timer, timeToExplode);
         UpdateScale();
-        Debug.Log($"🔥 Penalización aplicada. Tiempo actual: {timer:F1}/{timeToExplode} segundos.");
+        Debug.Log($"Penalización aplicada. Tiempo actual: {timer:F1}/{timeToExplode} segundos.");
     }
 }

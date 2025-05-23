@@ -49,13 +49,13 @@ public class GameManager : MonoBehaviour
 
     void HandlePotatoExploded()
     {
-        Debug.Log("🔴 La papa explotó. Fin del juego.");
+        Debug.Log("La papa explotó. Fin del juego.");
         questionManager.ShowGameOverMessage();
     }
 
     void HandleQuestionAnswered(bool wasCorrect)
     {
-        Debug.Log($"Respuesta {(wasCorrect ? "correcta ✅" : "incorrecta ❌")}. {(wasCorrect ? "Reiniciando" : "Penalizando")} papa...");
+        Debug.Log($"Respuesta {(wasCorrect ? "correcta " : "incorrecta ")}. {(wasCorrect ? "Reiniciando" : "Penalizando")} papa...");
 
         if (wasCorrect)
         {
