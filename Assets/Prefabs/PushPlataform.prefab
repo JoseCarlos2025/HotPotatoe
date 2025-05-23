@@ -53,8 +53,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.6698307, y: 1.039546, z: 0.74590874}
+  m_Center: {x: 0.3234796, y: -0.41947126, z: -1.7614632}
 --- !u!1 &4944871371360879050
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,8 +176,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.99, y: 0}
-  m_SizeDelta: {x: -1.97, y: 0}
+  m_AnchoredPosition: {x: 0.002500534, y: 0}
+  m_SizeDelta: {x: 0.0050011, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4905593104377771456
 CanvasRenderer:
@@ -208,7 +208,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 4a67c8e9782ba1646bdf5d83c6bdad3d, type: 3}
     m_FontSize: 7
     m_FontStyle: 0
     m_BestFit: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: El Hierro
+  m_Text: 'El Hierro '
 --- !u!1 &7943258463130130250
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,8 +260,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.015, y: 0.168}
-  m_SizeDelta: {x: 42.1, y: 20.3}
+  m_AnchoredPosition: {x: -0.01284, y: 0.18673}
+  m_SizeDelta: {x: 50.04433, y: 24.0468}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4192631039155286399
 Canvas:
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 30
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
@@ -467,7 +467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4616165200164398447, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.294
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4616165200164398447, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
       propertyPath: m_LocalPosition.y
