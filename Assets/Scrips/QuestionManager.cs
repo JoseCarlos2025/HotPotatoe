@@ -33,6 +33,10 @@ public class QuestionManager : MonoBehaviour
     [Header("JSON File")]
     public TextAsset jsonFile;
 
+    [Header("Game Over UI")]
+    public GameObject gameOverUIPrefab;
+    public Transform spawnPoint;
+
     private List<Question> questions;
     private int currentQuestionIndex = 0;
 
@@ -159,6 +163,8 @@ public class QuestionManager : MonoBehaviour
                     b.interactable = false;
                 }
             }
+
+            ShowGameOverUI();
         }
     }
 
@@ -195,6 +201,8 @@ public class QuestionManager : MonoBehaviour
                 b.interactable = false;
             }
         }
+
+        ShowGameOverUI();
     }
 
     public void Pause()
@@ -207,4 +215,13 @@ public class QuestionManager : MonoBehaviour
         isPaused = false;
         ShowCurrentQuestion();
     }
+
+    void ShowGameOverUI()
+    {
+        if (gameOverUIPrefab != null && spawnPoint != null)
+        {
+            Instantiate(gameOverUIPrefab, spawnPoint.position, spawnPoint.rotation);
+        }
+    }
 }
+
