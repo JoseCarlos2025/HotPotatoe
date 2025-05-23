@@ -40,6 +40,7 @@ public class QuestionManager : MonoBehaviour
     public event QuestionAnswered OnAnswered;
 
     private bool hasGameStarted = false;
+    private bool isPaused = false;
 
     void Start()
     {
@@ -67,7 +68,7 @@ public class QuestionManager : MonoBehaviour
 
     public void ShowCurrentQuestion()
     {
-        if (!hasGameStarted || currentQuestionIndex >= questions.Count) return;
+        if (!hasGameStarted || currentQuestionIndex >= questions.Count || isPaused) return;
 
         var question = questions[currentQuestionIndex];
         questionText.text = question.question;
@@ -95,7 +96,7 @@ public class QuestionManager : MonoBehaviour
 
     public void OnAnswerSelected(int index)
     {
-        if (!hasGameStarted) return;
+        if (!hasGameStarted || isPaused) return;
 
         var selectedAnswer = questions[currentQuestionIndex].answers[index];
         bool wasCorrect = selectedAnswer.correct;
@@ -177,5 +178,16 @@ public class QuestionManager : MonoBehaviour
                 b.interactable = false;
             }
         }
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+        ShowCurrentQuestion();
     }
 }

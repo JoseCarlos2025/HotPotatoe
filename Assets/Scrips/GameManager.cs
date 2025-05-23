@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Juego reanudado.");
             hotPotato.Resume();
-            hotPotato.PassPotato();
+            questionManager.Resume();
         }
     }
 
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Juego en pausa.");
         hotPotato.Pause();
+        questionManager.Pause();
     }
 
     void HandlePotatoExploded()
