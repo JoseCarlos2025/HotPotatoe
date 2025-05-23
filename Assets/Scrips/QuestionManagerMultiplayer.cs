@@ -33,17 +33,13 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     public GameObject panelUI;
 
     private List<Question> questions;
-
-    // Jugadores conectados y en juego
     private List<ulong> activePlayers = new List<ulong>();
     private List<ulong> alivePlayers = new List<ulong>();
 
     private int currentQuestionIndex = 0;
     private int currentPlayerIndex = 0;
 
-    // Flags locales
     private bool isMyTurn = false;
-    private int myPlayerIndex = -1;
 
     private void Awake()
     {
@@ -55,7 +51,6 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        // Carga preguntas en servidor y clientes
         LoadQuestions();
         ShuffleQuestions();
         panelUI.SetActive(false);
@@ -75,12 +70,9 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             return;
         }
 
-        // Recopilar jugadores conectados
         activePlayers.Clear();
         foreach (var client in NetworkManager.Singleton.ConnectedClients)
-        {
             activePlayers.Add(client.Key);
-        }
 
         if (activePlayers.Count < 2)
         {
@@ -88,9 +80,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             return;
         }
 
-        // Inicializar lista de jugadores vivos
         alivePlayers = new List<ulong>(activePlayers);
-
         currentQuestionIndex = 0;
         currentPlayerIndex = 0;
 
@@ -126,33 +116,29 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             Send = new ClientRpcSendParams { TargetClientIds = new[] { targetClient } }
         };
 
-        UpdateClientQuestionClientRpc(currentQuestionIndex, currentPlayerIndex, rpcParams);
+        UpdateClientQuestionClientRpc(currentQuestionIndex, rpcParams);
     }
 
     [ClientRpc]
-    void UpdateClientQuestionClientRpc(int questionIndex, int playerIndex, ClientRpcParams rpcParams = default)
+    void UpdateClientQuestionClientRpc(int questionIndex, ClientRpcParams rpcParams = default)
     {
         isMyTurn = true;
-        myPlayerIndex = playerIndex;
-
         panelUI.SetActive(true);
+
+        // Limpiar respuestas
+        foreach (var txt in answerTexts)
+        {
+            txt.text = "";
+            txt.transform.parent.gameObject.SetActive(false);
+        }
+
         var q = questions[questionIndex];
         questionText.text = q.question;
 
-        // Ocultar todos los botones
-        foreach (var txt in answerTexts)
-            txt.transform.parent.gameObject.SetActive(false);
-
-        // Mostrar solo los tres botones del jugador actual
-        int baseIndex = playerIndex * 3;
-        for (int i = 0; i < 3 && i < q.answers.Count; i++)
+        for (int i = 0; i < q.answers.Count && i < answerTexts.Length; i++)
         {
-            int idx = baseIndex + i;
-            if (idx < answerTexts.Length)
-            {
-                answerTexts[idx].text = q.answers[i].text;
-                answerTexts[idx].transform.parent.gameObject.SetActive(true);
-            }
+            answerTexts[i].text = q.answers[i].text;
+            answerTexts[i].transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -160,20 +146,10 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     {
         if (!isMyTurn) return;
 
-        int baseIndex = myPlayerIndex * 3;
-        int localIndex = buttonIndex - baseIndex;
-        if (localIndex < 0 || localIndex >= 3)
-        {
-            Debug.LogWarning("🚫 Este botón no pertenece al jugador actual.");
-            return;
-        }
-
-        // Desactivar UI localmente
         isMyTurn = false;
         panelUI.SetActive(false);
 
-        // Enviar elección al servidor
-        SubmitAnswerServerRpc(localIndex);
+        SubmitAnswerServerRpc(buttonIndex);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -194,48 +170,57 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
         if (!correct)
         {
-            Debug.Log($"❌ Jugador {clientId} ha sido eliminado.");
             alivePlayers.Remove(clientId);
+            Debug.Log($"❌ Jugador {clientId} eliminado.");
         }
         else
         {
             Debug.Log($"✅ Jugador {clientId} respondió correctamente.");
         }
 
-        // Verificar fin de la partida
         if (alivePlayers.Count == 1)
         {
             ulong winner = alivePlayers[0];
-            GameOverClientRpc(winner);
-            Debug.Log($"🏆 Jugador {winner} gana la partida.");
+
+            // Ganador
+            var winnerParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams { TargetClientIds = new[] { winner } }
+            };
+            ShowFinalMessageClientRpc("🎉 ¡Ganaste!", winnerParams);
+
+            // Perdedores
+            List<ulong> losers = new List<ulong>(activePlayers);
+            losers.Remove(winner);
+            var loserParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams { TargetClientIds = losers.ToArray() }
+            };
+            ShowFinalMessageClientRpc("☹️ ¡Perdiste!", loserParams);
+
             return;
         }
 
-        // Avanzar pregunta
         currentQuestionIndex++;
         if (currentQuestionIndex >= questions.Count)
         {
-            Debug.Log("📘 Fin de preguntas. Empate o varios supervivientes.");
+            Debug.Log("📘 Fin de preguntas.");
             return;
         }
 
-        // Avanzar al siguiente jugador vivo
-        NextAlivePlayer();
+        currentPlayerIndex = (currentPlayerIndex + 1) % alivePlayers.Count;
         ShowQuestionToCurrentPlayer();
     }
 
-    void NextAlivePlayer()
-    {
-        if (alivePlayers.Count == 0) return;
-        currentPlayerIndex = (currentPlayerIndex + 1) % alivePlayers.Count;
-    }
-
     [ClientRpc]
-    void GameOverClientRpc(ulong winnerClientId)
+    void ShowFinalMessageClientRpc(string message, ClientRpcParams rpcParams = default)
     {
-        // Aquí podrías mostrar UI de victoria
-        panelUI.SetActive(false);
-        Debug.Log($"🎉 ¡Jugador {winnerClientId} es el ganador!");
+        panelUI.SetActive(true);
+        questionText.text = message;
+
+        // Ocultar respuestas
+        foreach (var txt in answerTexts)
+            txt.transform.parent.gameObject.SetActive(false);
     }
 
     public void PauseQuestions()
