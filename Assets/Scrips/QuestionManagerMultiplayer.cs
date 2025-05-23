@@ -33,6 +33,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     public GameObject panelUI;
 
     private List<Question> questions;
+
     private List<ulong> activePlayers = new List<ulong>();
     private List<ulong> alivePlayers = new List<ulong>();
 
@@ -40,6 +41,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     private int currentPlayerIndex = 0;
 
     private bool isMyTurn = false;
+    private int myPlayerIndex = -1;
 
     private void Awake()
     {
@@ -72,7 +74,9 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
         activePlayers.Clear();
         foreach (var client in NetworkManager.Singleton.ConnectedClients)
+        {
             activePlayers.Add(client.Key);
+        }
 
         if (activePlayers.Count < 2)
         {
@@ -81,6 +85,7 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         }
 
         alivePlayers = new List<ulong>(activePlayers);
+
         currentQuestionIndex = 0;
         currentPlayerIndex = 0;
 
@@ -116,29 +121,31 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
             Send = new ClientRpcSendParams { TargetClientIds = new[] { targetClient } }
         };
 
-        UpdateClientQuestionClientRpc(currentQuestionIndex, rpcParams);
+        UpdateClientQuestionClientRpc(currentQuestionIndex, currentPlayerIndex, rpcParams);
     }
 
     [ClientRpc]
-    void UpdateClientQuestionClientRpc(int questionIndex, ClientRpcParams rpcParams = default)
+    void UpdateClientQuestionClientRpc(int questionIndex, int playerIndex, ClientRpcParams rpcParams = default)
     {
         isMyTurn = true;
+        myPlayerIndex = playerIndex;
+
         panelUI.SetActive(true);
-
-        // Limpiar respuestas
-        foreach (var txt in answerTexts)
-        {
-            txt.text = "";
-            txt.transform.parent.gameObject.SetActive(false);
-        }
-
         var q = questions[questionIndex];
         questionText.text = q.question;
 
-        for (int i = 0; i < q.answers.Count && i < answerTexts.Length; i++)
+        foreach (var txt in answerTexts)
+            txt.transform.parent.gameObject.SetActive(false);
+
+        int baseIndex = playerIndex * 3;
+        for (int i = 0; i < 3 && i < q.answers.Count; i++)
         {
-            answerTexts[i].text = q.answers[i].text;
-            answerTexts[i].transform.parent.gameObject.SetActive(true);
+            int idx = baseIndex + i;
+            if (idx < answerTexts.Length)
+            {
+                answerTexts[idx].text = q.answers[i].text;
+                answerTexts[idx].transform.parent.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -146,10 +153,18 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
     {
         if (!isMyTurn) return;
 
+        int baseIndex = myPlayerIndex * 3;
+        int localIndex = buttonIndex - baseIndex;
+        if (localIndex < 0 || localIndex >= 3)
+        {
+            Debug.LogWarning("🚫 Este botón no pertenece al jugador actual.");
+            return;
+        }
+
         isMyTurn = false;
         panelUI.SetActive(false);
 
-        SubmitAnswerServerRpc(buttonIndex);
+        SubmitAnswerServerRpc(localIndex);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -170,8 +185,8 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
 
         if (!correct)
         {
+            Debug.Log($"❌ Jugador {clientId} ha sido eliminado.");
             alivePlayers.Remove(clientId);
-            Debug.Log($"❌ Jugador {clientId} eliminado.");
         }
         else
         {
@@ -181,46 +196,42 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         if (alivePlayers.Count == 1)
         {
             ulong winner = alivePlayers[0];
-
-            // Ganador
-            var winnerParams = new ClientRpcParams
-            {
-                Send = new ClientRpcSendParams { TargetClientIds = new[] { winner } }
-            };
-            ShowFinalMessageClientRpc("🎉 ¡Ganaste!", winnerParams);
-
-            // Perdedores
-            List<ulong> losers = new List<ulong>(activePlayers);
-            losers.Remove(winner);
-            var loserParams = new ClientRpcParams
-            {
-                Send = new ClientRpcSendParams { TargetClientIds = losers.ToArray() }
-            };
-            ShowFinalMessageClientRpc("☹️ ¡Perdiste!", loserParams);
-
+            GameOverClientRpc(winner);
+            Debug.Log($"🏆 Jugador {winner} gana la partida.");
             return;
         }
 
         currentQuestionIndex++;
         if (currentQuestionIndex >= questions.Count)
         {
-            Debug.Log("📘 Fin de preguntas.");
+            Debug.Log("📘 Fin de preguntas. Empate o varios supervivientes.");
             return;
         }
 
-        currentPlayerIndex = (currentPlayerIndex + 1) % alivePlayers.Count;
+        NextAlivePlayer();
         ShowQuestionToCurrentPlayer();
     }
 
-    [ClientRpc]
-    void ShowFinalMessageClientRpc(string message, ClientRpcParams rpcParams = default)
+    void NextAlivePlayer()
     {
-        panelUI.SetActive(true);
-        questionText.text = message;
+        if (alivePlayers.Count == 0) return;
+        currentPlayerIndex = (currentPlayerIndex + 1) % alivePlayers.Count;
+    }
 
-        // Ocultar respuestas
+    [ClientRpc]
+    void GameOverClientRpc(ulong winnerClientId)
+    {
+        // Mostrar el panel al finalizar
+        panelUI.SetActive(true);
+
+        // Ocultar respuestas anteriores
         foreach (var txt in answerTexts)
             txt.transform.parent.gameObject.SetActive(false);
+
+        // Mostrar el mensaje de victoria
+        questionText.text = $"🎉 ¡Jugador {winnerClientId} es el ganador!";
+
+        Debug.Log($"🎉 ¡Jugador {winnerClientId} es el ganador!");
     }
 
     public void PauseQuestions()
@@ -228,3 +239,4 @@ public class QuestionManagerMultiplayer : NetworkBehaviour
         panelUI.SetActive(false);
     }
 }
+
