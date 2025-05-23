@@ -1816,6 +1816,7 @@ GameObject:
   - component: {fileID: 927697923}
   - component: {fileID: 927697922}
   - component: {fileID: 927697921}
+  - component: {fileID: 927697925}
   m_Layer: 5
   m_Name: Preguntas
   m_TagString: Untagged
@@ -1906,6 +1907,18 @@ RectTransform:
   m_AnchoredPosition: {x: 5956.2, y: 1.42}
   m_SizeDelta: {x: 1048, y: 606}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &927697925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927697920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b806f4c84c8914e89778d58482f50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &934539165
 PrefabInstance:
   m_ObjectHideFlags: 0
