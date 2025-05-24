@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1228040276074537099}
   - component: {fileID: 7020704828407537798}
   - component: {fileID: 6689518638802558251}
+  - component: {fileID: 4442572882238057619}
   m_Layer: 5
   m_Name: ExitRestart
   m_TagString: Untagged
@@ -37,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960.391, y: 1.229}
+  m_AnchoredPosition: {x: 960.391, y: 1.2290039}
   m_SizeDelta: {x: 1011.955, y: 301.7212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2126444387237141790
@@ -85,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &7020704828407537798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +116,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a1d50f3cf72304e8d7f4c193d4e9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4442572882238057619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3904042736069296070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
 --- !u!1 &5032695859479905826
 GameObject:
   m_ObjectHideFlags: 0

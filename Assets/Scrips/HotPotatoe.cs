@@ -5,6 +5,7 @@ public class HotPotato : MonoBehaviour
     public float growRate = 0.2f;
     public float maxScale = 3f;
     public float timeToExplode = 60f;
+    public ParticleSystem explosionParticles;
 
     private float timer = 0f;
     private Vector3 initialScale;
@@ -58,9 +59,20 @@ public class HotPotato : MonoBehaviour
     {
         Debug.Log("¡La papa explotó!");
         AudioManager.instance.PlaySFX("explosion");
+
+        // ✅ Reproducir partículas
+        if (explosionParticles != null)
+        {
+            explosionParticles.transform.parent = null;
+            explosionParticles.transform.position = transform.position;
+            explosionParticles.Play();
+            Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
+        }
+
         OnExploded?.Invoke();
         Destroy(gameObject);
     }
+
 
     public void PassPotato()
     {
