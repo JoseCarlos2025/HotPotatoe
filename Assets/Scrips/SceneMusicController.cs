@@ -9,14 +9,12 @@ public class SceneMusicController : MonoBehaviour
 
         switch (currentScene)
         {
-            case "Menu":
-                AudioManager.instance.PlayMusic("Menu");
+            case "Lobby":
+                AudioManager.instance.FadeToMusic("Menu", 1f);
                 break;
             case "Game":
-                AudioManager.instance.PlayMusic("ThemeGameplay");
-                break;
             case "Multiplayer":
-                AudioManager.instance.PlayMusic("ThemeGameplay");
+                AudioManager.instance.FadeToMusic("ThemeGameplay", 1f);
                 break;
         }
     }
