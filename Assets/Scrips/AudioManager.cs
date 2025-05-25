@@ -1,19 +1,19 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance; // Instancia única de la clase AudioManager
-                                         // Dos AudioSources para que se puedan reproducir efectos y música al mismo tiempo
+    public static AudioManager instance; // Instancia Ãºnica de la clase AudioManager
+                                         // Dos AudioSources para que se puedan reproducir efectos y mÃºsica al mismo tiempo
     public AudioSource sfxSource; // Componente AudioSource para efectos de sonido
-    public AudioSource musicSource; // Componente AudioSource para la música de fondo
+    public AudioSource musicSource; // Componente AudioSource para la mÃºsica de fondo
                                     // En vez de usar un vector de AudioClips vamos a utilizar un Diccionario
-                                    // en el que cargaremos directamente los recursos desde la jerarquía del proyecto
+                                    // en el que cargaremos directamente los recursos desde la jerarquÃ­a del proyecto
     public Dictionary<string, AudioClip> sfxClips = new Dictionary<string, AudioClip>();
     public Dictionary<string, AudioClip> musicClips = new Dictionary<string, AudioClip>();
-    // Método Awake que se llama al inicio antes de que se active el objeto. Útil para
-    // inicializarvariables u objetos que serán llamados por otros scripts
+    // MÃ©todo Awake que se llama al inicio antes de que se active el objeto. Ãštil para
+    // inicializarvariables u objetos que serÃ¡n llamados por otros scripts
     // (game managers, clases singleton, etc).
     private void Awake()
     {
@@ -24,21 +24,20 @@ public class AudioManager : MonoBehaviour
         LoadSFXClips(); // Cargamos los AudioClips (SFX) en los diccionarios
         LoadMusicClips(); // Cargamos los AudioClips (Music) en los diccionarios
     }
-    // Método para cargar los efectos de sonido directamente desde las carpetas
+    // MÃ©todo para cargar los efectos de sonido directamente desde las carpetas
     private void LoadSFXClips()
     {
         // Los recursos deben estar dentro de una carpeta denominada /Assets/Resources/SFX
         sfxClips["explosion"] = Resources.Load<AudioClip>("SFX/explosion");
-        sfxClips["CollectCoin"] = Resources.Load<AudioClip>("SFX/Collect_Coin");
     }
-    // Método privado para cargar la música de fondo directamente desde las carpetas
+    // MÃ©todo privado para cargar la mÃºsica de fondo directamente desde las carpetas
     private void LoadMusicClips()
     {
         // Los recursos deben estar dentro de una carpeta denominada /Assets/Resources/Music
         musicClips["Menu"] = Resources.Load<AudioClip>("Music/Menu");
         musicClips["ThemeGameplay"] = Resources.Load<AudioClip>("Music/ThemeGameplay");
     }
-    // Método de la clase singleton para reproducir efectos de sonido
+    // MÃ©todo de la clase singleton para reproducir efectos de sonido
     public void PlaySFX(string clipName)
     {
         if (sfxClips.ContainsKey(clipName))
@@ -48,10 +47,10 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("El AudioClip " + clipName + " no se encontró en el diccionario de sfxClips.");
+            Debug.LogWarning("El AudioClip " + clipName + " no se encontrÃ³ en el diccionario de sfxClips.");
         }
     }
-    // Método de la clase singleton para reproducir música de fondo
+    // MÃ©todo de la clase singleton para reproducir mÃºsica de fondo
     public void PlayMusic(string clipName)
     {
         if (musicClips.ContainsKey(clipName))
@@ -61,10 +60,10 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("El AudioClip " + clipName + " no se encontró en el diccionario de musicClips.");
+            Debug.LogWarning("El AudioClip " + clipName + " no se encontrÃ³ en el diccionario de musicClips.");
         }
     }
-    // Reproducimos la música de fondo (aunque lo normal es que vaya en el GameManager)
+    // Reproducimos la mÃºsica de fondo (aunque lo normal es que vaya en el GameManager)
     private void Start()
     {
         AudioManager.instance.PlayMusic("Menu");
