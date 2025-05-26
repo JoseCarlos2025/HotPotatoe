@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 
 public class HotPotato : MonoBehaviour
 {
@@ -6,6 +9,12 @@ public class HotPotato : MonoBehaviour
     public float maxScale = 3f;
     public float timeToExplode = 60f;
     public ParticleSystem explosionParticles;
+
+    public XRNode holdingNode = XRNode.LeftHand;
+
+    public float hapticIntensityMultiplier = 1.0f;
+    public float hapticFrequency = 0.5f;
+    private float hapticTimer = 0f;
 
     private float timer = 0f;
     private Vector3 initialScale;
@@ -25,6 +34,7 @@ public class HotPotato : MonoBehaviour
 
         timer += Time.deltaTime;
         UpdateScale();
+        UpdateHaptics();
 
         if (timer >= timeToExplode || transform.localScale.x >= maxScale)
         {
@@ -36,6 +46,24 @@ public class HotPotato : MonoBehaviour
     {
         float scaleFactor = 1 + (timer / timeToExplode) * (maxScale - 1);
         transform.localScale = initialScale * scaleFactor;
+    }
+
+    private void UpdateHaptics()
+    {
+        hapticTimer += Time.deltaTime;
+        if (hapticTimer >= hapticFrequency)
+        {
+            hapticTimer = 0f;
+
+            float intensity = Mathf.Clamp01(timer / timeToExplode) * hapticIntensityMultiplier;
+            float duration = 0.1f;
+
+            var side = holdingNode == XRNode.RightHand
+                ? HapticsUtility.Controller.Right
+                : HapticsUtility.Controller.Left;
+
+            HapticsUtility.SendHapticImpulse(intensity, duration, side);
+        }
     }
 
     public void Pause()
@@ -58,9 +86,19 @@ public class HotPotato : MonoBehaviour
     void Explode()
     {
         Debug.Log("¡La papa explotó!");
-        AudioManager.instance.PlaySFX("explosion");
+        AudioManager.instance?.PlaySFX("explosion");
 
-        // ✅ Reproducir partículas
+        // Vibración fuerte al que la sostiene
+        var side = holdingNode == XRNode.RightHand
+            ? HapticsUtility.Controller.Right
+            : HapticsUtility.Controller.Left;
+
+        HapticsUtility.SendHapticImpulse(1.0f, 0.3f, side);
+
+        // Vibración leve en ambas manos
+        HapticsUtility.SendHapticImpulse(0.5f, 0.2f, HapticsUtility.Controller.Left);
+        HapticsUtility.SendHapticImpulse(0.5f, 0.2f, HapticsUtility.Controller.Right);
+
         if (explosionParticles != null)
         {
             explosionParticles.transform.parent = null;
@@ -72,7 +110,6 @@ public class HotPotato : MonoBehaviour
         OnExploded?.Invoke();
         Destroy(gameObject);
     }
-
 
     public void PassPotato()
     {
