@@ -28,6 +28,7 @@ public class AudioManager : MonoBehaviour
         sfxClips["explosion"] = Resources.Load<AudioClip>("SFX/explosion");
         sfxClips["incorrect"] = Resources.Load<AudioClip>("SFX/incorrect");
         sfxClips["correct"] = Resources.Load<AudioClip>("SFX/correct");
+        sfxClips["sword"] = Resources.Load<AudioClip>("SFX/sword-sound-260274");
     }
 
     private void LoadMusicClips()

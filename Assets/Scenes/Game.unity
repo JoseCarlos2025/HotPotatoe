@@ -235,6 +235,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -257,6 +261,10 @@ PrefabInstance:
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestionManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -1072,6 +1080,10 @@ PrefabInstance:
     - target: {fileID: 5983728744261813390, guid: 9ac35cbe9607f03438219f5eebf73631, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232571149063451698, guid: 9ac35cbe9607f03438219f5eebf73631, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7041231979190063050, guid: 9ac35cbe9607f03438219f5eebf73631, type: 3}
       propertyPath: m_IsActive
@@ -4079,6 +4091,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -4101,6 +4117,10 @@ PrefabInstance:
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestionManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -4290,7 +4310,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_Handedness: 1
+  m_Handedness: 2
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -5416,6 +5436,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -5438,6 +5462,10 @@ PrefabInstance:
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestionManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName

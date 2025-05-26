@@ -30,6 +30,7 @@ public class GameStartHandle : MonoBehaviour
     void OnGrabbed(SelectEnterEventArgs args)
     {
         Debug.Log(args.interactorObject.handedness);
+        AudioManager.instance?.PlaySFX("sword");
         if (gameManager != null)
         {
             gameManager.StartOrResumeGame();
