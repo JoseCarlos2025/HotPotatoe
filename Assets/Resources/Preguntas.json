@@ -247,6 +247,805 @@
           { "text": "La Palma", "correct": false },
           { "text": "Gran Canaria", "correct": false }
         ]
+      },
+      {
+        "question": "¿Cómo se llama el mar que rodea al archipiélago canario?",
+        "answers": [
+          { "text": "Mar Cantábrico", "correct": false },
+          { "text": "Mar Mediterráneo", "correct": false },
+          { "text": "Océano Atlántico", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Cuál de estas islas no tiene aeropuerto?",
+        "answers": [
+          { "text": "La Graciosa", "correct": true },
+          { "text": "El Hierro", "correct": false },
+          { "text": "La Palma", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué fiesta popular se celebra en Agaete (Gran Canaria) cada agosto?",
+        "answers": [
+          { "text": "La Rama", "correct": true },
+          { "text": "El Charco", "correct": false },
+          { "text": "Los Indianos", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el gentilicio de los habitantes de La Gomera?",
+        "answers": [
+          { "text": "Gomerenses", "correct": true },
+          { "text": "Gomeros", "correct": false },
+          { "text": "Gomeños", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el nombre del aeropuerto principal de Tenerife?",
+        "answers": [
+          { "text": "Aeropuerto Reina Sofía", "correct": true },
+          { "text": "Aeropuerto de Tejeda", "correct": false },
+          { "text": "Aeropuerto César Manrique", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué zona volcánica famosa se encuentra en Lanzarote?",
+        "answers": [
+          { "text": "Timanfaya", "correct": true },
+          { "text": "Teide", "correct": false },
+          { "text": "Garajonay", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué archipiélago africano está más cerca de Canarias?",
+        "answers": [
+          { "text": "Cabo Verde", "correct": true },
+          { "text": "Azores", "correct": false },
+          { "text": "Madeira", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué nombre recibe la sopa típica canaria hecha con gofio?",
+        "answers": [
+          { "text": "Escaldón", "correct": true },
+          { "text": "Gazpacho", "correct": false },
+          { "text": "Puchero", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla es famosa por sus dunas que parecen un desierto?",
+        "answers": [
+          { "text": "Fuerteventura", "correct": false },
+          { "text": "Gran Canaria", "correct": false },
+          { "text": "Lanzarote", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué famoso artista creó obras en armonía con el paisaje lanzaroteño?",
+        "answers": [
+          { "text": "César Manrique", "correct": true },
+          { "text": "Antonio López", "correct": false },
+          { "text": "Eduardo Chillida", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué ciudad canaria alberga el histórico barrio de Vegueta?",
+        "answers": [
+          { "text": "Arrecife", "correct": false },
+          { "text": "Santa Cruz de Tenerife", "correct": false },
+          { "text": "Las Palmas de Gran Canaria", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué isla cuenta con un bosque de laurisilva declarado Patrimonio de la Humanidad?",
+        "answers": [
+          { "text": "La Gomera", "correct": true },
+          { "text": "Fuerteventura", "correct": false },
+          { "text": "Lanzarote", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el gentilicio de los habitantes de Lanzarote?",
+        "answers": [
+          { "text": "Lanzaroteños", "correct": false },
+          { "text": "Conejeros", "correct": true },
+          { "text": "Majoreros", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál de las siguientes islas es de origen completamente volcánico?",
+        "answers": [
+          { "text": "Lanzarote", "correct": true },
+          { "text": "Menorca", "correct": false },
+          { "text": "Cerdeña", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla canaria es la más joven geológicamente?",
+        "answers": [
+          { "text": "El Hierro", "correct": false },
+          { "text": "Tenerife", "correct": false },
+          { "text": "La Palma", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Cuál es el pico más alto de Gran Canaria?",
+        "answers": [
+          { "text": "Roque Nublo", "correct": false },
+          { "text": "Pico de las Nieves", "correct": true },
+          { "text": "Montaña Alta", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué especie vegetal endémica es símbolo de Tenerife?",
+        "answers": [
+          { "text": "Pino canario", "correct": false },
+          { "text": "Tajinaste rojo", "correct": true },
+          { "text": "Cardón", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál de estas fiestas se celebra en La Palma durante el carnaval?",
+        "answers": [
+          { "text": "Los Indianos", "correct": true },
+          { "text": "La Rama", "correct": false },
+          { "text": "San Juan", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué ciudad fue capital única de Canarias hasta el siglo XX?",
+        "answers": [
+          { "text": "Las Palmas de Gran Canaria", "correct": false },
+          { "text": "Santa Cruz de Tenerife", "correct": true },
+          { "text": "San Cristóbal de La Laguna", "correct": false }
+        ]
+      },{
+        "question": "¿Qué isla canaria tiene una reserva marina protegida conocida como La Restinga?",
+        "answers": [
+          { "text": "El Hierro", "correct": true },
+          { "text": "La Gomera", "correct": false },
+          { "text": "Tenerife", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el antiguo reino aborigen que ocupaba el norte de Tenerife?",
+        "answers": [
+          { "text": "Menceyato de Taoro", "correct": true },
+          { "text": "Galdar", "correct": false },
+          { "text": "Agüimes", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué edificio canario alberga una importante colección de momias guanches?",
+        "answers": [
+          { "text": "Museo Elder", "correct": false },
+          { "text": "Museo Arqueológico de Tenerife", "correct": true },
+          { "text": "Casa Colón", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué bebida fermentada de cereales y gofio era consumida por los aborígenes canarios?",
+        "answers": [
+          { "text": "Chicha", "correct": true },
+          { "text": "Pulque", "correct": false },
+          { "text": "Ron miel", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué ciudad canaria fue la primera en tener universidad?",
+        "answers": [
+          { "text": "La Laguna", "correct": true },
+          { "text": "Las Palmas", "correct": false },
+          { "text": "Santa Cruz", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es la cumbre más alta de La Gomera?",
+        "answers": [
+          { "text": "Alto de Garajonay", "correct": true },
+          { "text": "Pico de las Nieves", "correct": false },
+          { "text": "Roque Bentayga", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué símbolo natural representa a La Palma?",
+        "answers": [
+          { "text": "El pino canario", "correct": true },
+          { "text": "La tabaiba", "correct": false },
+          { "text": "El drago", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál de estos deportes tradicionales es típico de Canarias?",
+        "answers": [
+          { "text": "Juego del palo", "correct": true },
+          { "text": "Jai alai", "correct": false },
+          { "text": "Canotaje", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué municipio de Lanzarote es conocido por sus viñedos en suelo volcánico?",
+        "answers": [
+          { "text": "Yaiza", "correct": false },
+          { "text": "Tinajo", "correct": false },
+          { "text": "La Geria", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué isla canaria cuenta con la mayor superficie protegida en parques naturales?",
+        "answers": [
+          { "text": "Tenerife", "correct": false },
+          { "text": "La Palma", "correct": false },
+          { "text": "La Gomera", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué isla canaria es conocida popularmente como la «Isla del Meridiano»?",
+        "answers": [
+          { "text": "El Hierro", "correct": true },
+          { "text": "La Gomera", "correct": false },
+          { "text": "La Graciosa", "correct": false }
+        ]
+      },
+      {
+        "question": "¿En qué localidad tinerfeña se encuentra el famoso Drago Milenario?",
+        "answers": [
+          { "text": "Icod de los Vinos", "correct": true },
+          { "text": "Candelaria", "correct": false },
+          { "text": "Puerto de la Cruz", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el nombre del aeropuerto de Gran Canaria?",
+        "answers": [
+          { "text": "Aeropuerto de Gando", "correct": true },
+          { "text": "Aeropuerto Reina Sofía", "correct": false },
+          { "text": "Aeropuerto de Los Rodeos", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla canaria celebra la romería de Los Dolores en honor a su patrona?",
+        "answers": [
+          { "text": "Lanzarote", "correct": true },
+          { "text": "Tenerife", "correct": false },
+          { "text": "Fuerteventura", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama la flor símbolo de Gran Canaria?",
+        "answers": [
+          { "text": "Cardón", "correct": false },
+          { "text": "Tajinaste azul", "correct": true },
+          { "text": "Peralillo", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué pico es el más alto de Fuerteventura?",
+        "answers": [
+          { "text": "Pico de la Zarza", "correct": true },
+          { "text": "Montaña de Tindaya", "correct": false },
+          { "text": "Pico del Inglés", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es la capital de la isla de El Hierro?",
+        "answers": [
+          { "text": "Valverde", "correct": true },
+          { "text": "Frontera", "correct": false },
+          { "text": "El Pinar", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué agrupación musical se asocia tradicionalmente con el folclore canario?",
+        "answers": [
+          { "text": "Rondalla", "correct": true },
+          { "text": "Tunera", "correct": false },
+          { "text": "Chispera", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama la tradición de tirar polvos de talco durante el carnaval palmero?",
+        "answers": [
+          { "text": "Los Indianos", "correct": true },
+          { "text": "Los Carneros", "correct": false },
+          { "text": "La Diablada", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué especie animal marina es habitual avistar en las aguas de Tenerife y La Gomera?",
+        "answers": [
+          { "text": "Delfín mular", "correct": true },
+          { "text": "Ballena azul", "correct": false },
+          { "text": "Foca monje", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el queso con Denominación de Origen producido en Fuerteventura?",
+        "answers": [
+          { "text": "Queso Majorero", "correct": true },
+          { "text": "Queso Palmero", "correct": false },
+          { "text": "Queso Flor", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué localidad lagunera alberga la Iglesia de la Concepción, considerada la cuna del arte sacro de Canarias?",
+        "answers": [
+          { "text": "San Cristóbal de La Laguna", "correct": true },
+          { "text": "Tacoronte", "correct": false },
+          { "text": "La Orotava", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué evento deportivo recorre las cumbres de Gran Canaria cada mes de febrero?",
+        "answers": [
+          { "text": "Transgrancanaria", "correct": true },
+          { "text": "Ironman Lanzarote", "correct": false },
+          { "text": "Maratón de Santa Cruz", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es la lengua indígena que hablaban los antiguos habitantes de Lanzarote y Fuerteventura?",
+        "answers": [
+          { "text": "Amazighe", "correct": true },
+          { "text": "Guaraní", "correct": false },
+          { "text": "Aimara", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué músico tinerfeño fue director de la Banda Municipal de Santa Cruz y compuso el pasodoble \"Islas Canarias\"?",
+        "answers": [
+          { "text": "José María Tarridas", "correct": false },
+          { "text": "José Manuel Cabrera", "correct": false },
+          { "text": "José Olaizola", "correct": true }
+        ]
+      },
+      {
+        "question": "¿En qué isla se localiza el Mirador del Río, obra de César Manrique?",
+        "answers": [
+          { "text": "Lanzarote", "correct": true },
+          { "text": "El Hierro", "correct": false },
+          { "text": "Gran Canaria", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué fruta subtropical, además del plátano, tiene amplia producción en la isla de La Palma?",
+        "answers": [
+          { "text": "Aguacate", "correct": true },
+          { "text": "Kiwi", "correct": false },
+          { "text": "Lichi", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el nombre del santuario mariano situado en la costa de Candelaria, Tenerife?",
+        "answers": [
+          { "text": "Basílica de Nuestra Señora de Candelaria", "correct": true },
+          { "text": "Ermita de la Virgen del Pino", "correct": false },
+          { "text": "Santuario de la Virgen de los Volcanes", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué mineral fue explotado históricamente en la Montaña de Tindaya?",
+        "answers": [
+          { "text": "Traquita", "correct": false },
+          { "text": "Traspín", "correct": false },
+          { "text": "Traquita con betas de piedra", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué isla canaria cuenta con el Observatorio del Roque de los Muchachos?",
+        "answers": [
+          { "text": "La Palma", "correct": true },
+          { "text": "El Hierro", "correct": false },
+          { "text": "La Gomera", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el producto artesanal típico de la isla de La Gomera elaborado con la savia de la palmera?",
+        "answers": [
+          { "text": "Gofio", "correct": false },
+          { "text": "Miel de palma", "correct": true },
+          { "text": "Almendrados", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué planta suculenta canaria es usada en cosmética y medicina natural?",
+        "answers": [
+          { "text": "Aloe vera", "correct": true },
+          { "text": "Chumbera", "correct": false },
+          { "text": "Cardón", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Con qué nombre se conoce al baile folclórico en el que las parejas giran agarradas de la mano en círculos concéntricos?",
+        "answers": [
+          { "text": "Baile del vivo", "correct": false },
+          { "text": "Baile de la isa", "correct": true },
+          { "text": "Baile del santo", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué escritor canario, autor de \"La Lapa\", fue Premio Canarias de Literatura?",
+        "answers": [
+          { "text": "Víctor Ramírez", "correct": true },
+          { "text": "Pedro García Cabrera", "correct": false },
+          { "text": "Rafael Arozarena", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla posee la carretera con más curvas de todo el archipiélago, la GM‑1?",
+        "answers": [
+          { "text": "La Gomera", "correct": true },
+          { "text": "Gran Canaria", "correct": false },
+          { "text": "Tenerife", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué puerto fue escala de Cristóbal Colón antes de su primer viaje a América?",
+        "answers": [
+          { "text": "Puerto de La Luz", "correct": false },
+          { "text": "Puerto de San Sebastián de La Gomera", "correct": true },
+          { "text": "Puerto de Tazacorte", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué lago volcánico, conocido como \"Charco Verde\", se encuentra en El Golfo (Lanzarote)?",
+        "answers": [
+          { "text": "Lago de los Clicos", "correct": true },
+          { "text": "Lago de los Ajos", "correct": false },
+          { "text": "Lago de la Caldera", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla posee el yacimiento arqueológico de Zonzamas?",
+        "answers": [
+          { "text": "Lanzarote", "correct": true },
+          { "text": "Gran Canaria", "correct": false },
+          { "text": "Fuerteventura", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es la playa de arena blanca más extensa de Fuerteventura?",
+        "answers": [
+          { "text": "Playa de Cofete", "correct": true },
+          { "text": "Playa de Sotavento", "correct": false },
+          { "text": "Playa de Las Canteras", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué tipo de roca volcánica ligera, usada como abrasivo, se extrae en Lanzarote?",
+        "answers": [
+          { "text": "Piroclasto", "correct": false },
+          { "text": "Puzolana", "correct": false },
+          { "text": "Piedra pómez", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el sauce endémico que crece en los barrancos canarios?",
+        "answers": [
+          { "text": "Sauce canario", "correct": true },
+          { "text": "Sauce llorón", "correct": false },
+          { "text": "Sauce blanco", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué científico histórico usó el Teide como referente para el estudio del clima y la botánica?",
+        "answers": [
+          { "text": "Alexander von Humboldt", "correct": true },
+          { "text": "Charles Darwin", "correct": false },
+          { "text": "Louis Pasteur", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el tradicional juego canario similar al ajedrez pero con fichas cilíndricas?",
+        "answers": [
+          { "text": "El Palo Canario", "correct": false },
+          { "text": "El Juego del Garrote", "correct": false },
+          { "text": "La Perinola", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué museo de Gran Canaria está dedicado a la figura de un ilustre escritor naturalista, autor de «Platero y yo»?",
+        "answers": [
+          { "text": "Casa‑Museo Pérez Galdós", "correct": false },
+          { "text": "Casa‑Museo Tomás Morales", "correct": false },
+          { "text": "Casa‑Museo Antonio Padrón", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué nombre recibe la alfombra de sal que se elabora cada Corpus Christi en La Orotava?",
+        "answers": [
+          { "text": "Tapices de sal", "correct": true },
+          { "text": "Manteles de arena", "correct": false },
+          { "text": "Lienzos de gofio", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el principal producto de exportación agrícola de las islas desde finales del siglo XIX?",
+        "answers": [
+          { "text": "Plátano", "correct": true },
+          { "text": "Caña de azúcar", "correct": false },
+          { "text": "Vid", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué cala de La Graciosa es famosa por su arena dorada y aguas turquesas?",
+        "answers": [
+          { "text": "Playa de Las Conchas", "correct": true },
+          { "text": "Playa de Famara", "correct": false },
+          { "text": "Playa Blanca", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla posee el Parque Natural de las Dunas de Corralejo?",
+        "answers": [
+          { "text": "Fuerteventura", "correct": true },
+          { "text": "Gran Canaria", "correct": false },
+          { "text": "Tenerife", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el monte sagrado para los aborígenes guanches en Gran Canaria?",
+        "answers": [
+          { "text": "Roque Bentayga", "correct": true },
+          { "text": "Montaña Amarilla", "correct": false },
+          { "text": "Pico Viejo", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué pueblo majorero celebra cada septiembre la popular romería de la Peña?",
+        "answers": [
+          { "text": "Vega de Río Palmas", "correct": true },
+          { "text": "Betancuria", "correct": false },
+          { "text": "Pájara", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué nombre recibe la zona vinícola de Tenerife famosa por sus malvasías dulces?",
+        "answers": [
+          { "text": "La Orotava", "correct": false },
+          { "text": "Abona", "correct": false },
+          { "text": "Valle de Güímar", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué isla alberga la Reserva Natural Integral de los Roques de Salmor, hábitat del lagarto gigante?",
+        "answers": [
+          { "text": "El Hierro", "correct": true },
+          { "text": "La Gomera", "correct": false },
+          { "text": "La Palma", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué puerto tinerfeño es punto de llegada de la regata transatlántica ARC?",
+        "answers": [
+          { "text": "Puerto de Los Cristianos", "correct": false },
+          { "text": "Marina de Santa Cruz", "correct": true },
+          { "text": "Puerto de Garachico", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué producto de repostería lagunera es famoso por su sabor a limón y almendra?",
+        "answers": [
+          { "text": "Bienmesabe", "correct": false },
+          { "text": "Laguna", "correct": false },
+          { "text": "Tarta de la Virgen de Candelaria", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué importante ruta de migración de aves atraviesa el archipiélago canario?",
+        "answers": [
+          { "text": "Ruta del Atlántico oriental", "correct": true },
+          { "text": "Ruta mediterránea", "correct": false },
+          { "text": "Ruta polar africana", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla es conocida por su tradición alfarera sin torno?",
+        "answers": [
+          { "text": "La Gomera", "correct": false },
+          { "text": "La Palma", "correct": false },
+          { "text": "Gran Canaria", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama la isla que recientemente fue reconocida oficialmente como la octava isla habitada?",
+        "answers": [
+          { "text": "La Graciosa", "correct": true },
+          { "text": "Lobos", "correct": false },
+          { "text": "Roque del Este", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla canaria tiene el aeropuerto más alto en altitud sobre el nivel del mar?",
+        "answers": [
+          { "text": "Tenerife Norte", "correct": true },
+          { "text": "El Hierro", "correct": false },
+          { "text": "La Palma", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llaman las viviendas aborígenes excavadas en piedra que se conservan en Lanzarote?",
+        "answers": [
+          { "text": "Cuevas de los Majos", "correct": false },
+          { "text": "Poblado de Zonzamas", "correct": true },
+          { "text": "Casas de Ajuy", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué nombre reciben las fiestas patronales de la Virgen de las Nieves en La Palma?",
+        "answers": [
+          { "text": "La Bajada", "correct": true },
+          { "text": "Los Indianos", "correct": false },
+          { "text": "La Diabla", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué es el 'Salto del pastor canario'?",
+        "answers": [
+          { "text": "Un juego tradicional", "correct": false },
+          { "text": "Una técnica de desplazamiento rural", "correct": true },
+          { "text": "Una danza folclórica", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué nombre recibe el órgano de gobierno tradicional de los guanches?",
+        "answers": [
+          { "text": "Tagoror", "correct": true },
+          { "text": "Menceyato", "correct": false },
+          { "text": "Aldea", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál era el nombre de los antiguos reinos guanches de Tenerife?",
+        "answers": [
+          { "text": "Tagorores", "correct": false },
+          { "text": "Guanartematos", "correct": false },
+          { "text": "Menceyatos", "correct": true }
+        ]
+      },
+      {
+        "question": "¿En qué isla se encuentra el Charco Azul, una popular piscina natural?",
+        "answers": [
+          { "text": "El Hierro", "correct": true },
+          { "text": "La Gomera", "correct": false },
+          { "text": "Tenerife", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla cuenta con el Valle de Agaete, famoso por su cultivo de café?",
+        "answers": [
+          { "text": "Gran Canaria", "correct": true },
+          { "text": "Tenerife", "correct": false },
+          { "text": "La Palma", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué municipio lanzaroteño fue arrasado por la erupción de Timanfaya en el siglo XVIII?",
+        "answers": [
+          { "text": "Yaiza", "correct": false },
+          { "text": "Teguise", "correct": false },
+          { "text": "Maca", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el tubérculo muy usado en la cocina canaria y que se arruga al hervirse con sal?",
+        "answers": [
+          { "text": "Papa negra", "correct": false },
+          { "text": "Papa bonita", "correct": true },
+          { "text": "Ñame", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla posee una zona arqueológica llamada La Cueva de los Verdes?",
+        "answers": [
+          { "text": "Lanzarote", "correct": true },
+          { "text": "El Hierro", "correct": false },
+          { "text": "Fuerteventura", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el cono volcánico dentro del Parque Nacional del Teide, más bajo que el Teide?",
+        "answers": [
+          { "text": "Pico Viejo", "correct": true },
+          { "text": "Roque de García", "correct": false },
+          { "text": "Chinyero", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla tiene un festival internacional de música clásica en una cueva volcánica?",
+        "answers": [
+          { "text": "Lanzarote", "correct": true },
+          { "text": "La Gomera", "correct": false },
+          { "text": "Fuerteventura", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el barrio histórico fundado por los normandos en Betancuria (Fuerteventura)?",
+        "answers": [
+          { "text": "Barrio de Vega", "correct": false },
+          { "text": "Barrio de San Diego", "correct": true },
+          { "text": "Barrio de los Francos", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué museo canario alberga importantes restos guanches y momias?",
+        "answers": [
+          { "text": "Museo de la Naturaleza y la Arqueología (MUNA)", "correct": true },
+          { "text": "Museo de Ciencia y el Cosmos", "correct": false },
+          { "text": "Casa de Colón", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué formación volcánica se puede ver en el Monumento Natural de los Roques de García?",
+        "answers": [
+          { "text": "La Catedral", "correct": false },
+          { "text": "Roque Cinchado", "correct": true },
+          { "text": "Roque Nublo", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué animal se representa en el escudo de Canarias?",
+        "answers": [
+          { "text": "Perros", "correct": true },
+          { "text": "Cabras", "correct": false },
+          { "text": "Delfines", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué isla tiene el menor número de municipios?",
+        "answers": [
+          { "text": "La Graciosa", "correct": false },
+          { "text": "El Hierro", "correct": false },
+          { "text": "La Gomera", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué especie vegetal endémica destaca por sus flores en forma de trompeta y crece en Tenerife?",
+        "answers": [
+          { "text": "Tajinaste rojo", "correct": true },
+          { "text": "Cardón", "correct": false },
+          { "text": "Tabaiba dulce", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cómo se llama el tipo de pan dulce típico de Agaete, en Gran Canaria?",
+        "answers": [
+          { "text": "Pan de papa", "correct": false },
+          { "text": "Pan de manteca", "correct": false },
+          { "text": "Pan de huevo", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué antigua capital de Canarias es hoy Patrimonio de la Humanidad?",
+        "answers": [
+          { "text": "La Laguna", "correct": true },
+          { "text": "Teguise", "correct": false },
+          { "text": "Betancuria", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Qué nombre recibe la danza ritual de origen prehispánico en honor a la fertilidad en Gran Canaria?",
+        "answers": [
+          { "text": "Baile del vivo", "correct": false },
+          { "text": "El Charco", "correct": false },
+          { "text": "La danza del buchito", "correct": true }
+        ]
+      },
+      {
+        "question": "¿Qué isla posee el Faro de Orchilla, que marcaba el meridiano cero antes de Greenwich?",
+        "answers": [
+          { "text": "El Hierro", "correct": true },
+          { "text": "Lanzarote", "correct": false },
+          { "text": "La Palma", "correct": false }
+        ]
+      },
+      {
+        "question": "¿Cuál es el nombre del golfo donde se encuentra el popular Charco de Los Clicos?",
+        "answers": [
+          { "text": "El Golfo", "correct": true },
+          { "text": "El Charco", "correct": false },
+          { "text": "El Jable", "correct": false }
+        ]
       }
     ]
   }
