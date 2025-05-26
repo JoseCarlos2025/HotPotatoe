@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -8,8 +9,17 @@ public class GameStartHandle : MonoBehaviour
 
     XRGrabInteractable grabInteractable;
 
+    public GameObject punterDerecho;
+    public GameObject punterIzquierdo;
+
+    public HotPotato hotPotato;
+
+    private bool isPunterEnabled;
+
     void Awake()
     {
+        isPunterEnabled = PlayerPrefs.GetInt("PunterEnabled", 1) == 1;
+
         grabInteractable = GetComponent<XRGrabInteractable>();
         if (grabInteractable == null)
         {
@@ -22,27 +32,48 @@ public class GameStartHandle : MonoBehaviour
 
     void OnDestroy()
     {
-        // Limpieza de eventos
         grabInteractable.selectEntered.RemoveListener(OnGrabbed);
         grabInteractable.selectExited.RemoveListener(OnReleased);
     }
 
     void OnGrabbed(SelectEnterEventArgs args)
     {
-        Debug.Log(args.interactorObject.handedness);
-        AudioManager.instance?.PlaySFX("sword");
-        if (gameManager != null)
+        if (args.interactorObject.handedness.ToString() == "Left")
         {
-            gameManager.StartOrResumeGame();
+            hotPotato.holdingNode = XRNode.LeftHand;
+            if (isPunterEnabled)
+            {
+                punterDerecho.SetActive(false);
+            }
         }
+        else if (args.interactorObject.handedness.ToString() == "Right")
+        {
+            hotPotato.holdingNode = XRNode.RightHand;
+            if (isPunterEnabled)
+            {
+                punterIzquierdo.SetActive(false);
+            }
+        }
+
+        AudioManager.instance?.PlaySFX("sword");
+        gameManager?.StartOrResumeGame();
     }
 
     void OnReleased(SelectExitEventArgs args)
     {
-        if (gameManager != null)
+        if (isPunterEnabled)
         {
-            gameManager.PauseGame();
+            if (args.interactorObject.handedness.ToString() == "Left")
+            {
+                punterDerecho.SetActive(true);
+            }
+            else if (args.interactorObject.handedness.ToString() == "Right")
+            {
+                punterIzquierdo.SetActive(true);
+            }
         }
+
+        gameManager?.PauseGame();
     }
 }
 

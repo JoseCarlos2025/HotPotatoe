@@ -1133,6 +1133,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1087703512}
   m_SourcePrefab: {fileID: 100100000, guid: 9ac35cbe9607f03438219f5eebf73631, type: 3}
+--- !u!1 &528064076 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3054165203966046316, guid: 9ac35cbe9607f03438219f5eebf73631, type: 3}
+  m_PrefabInstance: {fileID: 528064075}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &528064077 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5436428228221873907, guid: 9ac35cbe9607f03438219f5eebf73631, type: 3}
+  m_PrefabInstance: {fileID: 528064075}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &537324712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5328,6 +5338,14 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1909537248}
+    - target: {fileID: 1875764499546759157, guid: 3eb6ea6a00325e745b6b661a1dc0168e, type: 3}
+      propertyPath: punterDerecho
+      value: 
+      objectReference: {fileID: 528064076}
+    - target: {fileID: 1875764499546759157, guid: 3eb6ea6a00325e745b6b661a1dc0168e, type: 3}
+      propertyPath: punterIzquierdo
+      value: 
+      objectReference: {fileID: 528064077}
     - target: {fileID: 3011994399167641899, guid: 3eb6ea6a00325e745b6b661a1dc0168e, type: 3}
       propertyPath: m_Name
       value: Tenedor

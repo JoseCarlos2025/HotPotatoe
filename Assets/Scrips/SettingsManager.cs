@@ -6,23 +6,24 @@ public class SettingsManager : MonoBehaviour
     [Header("UI References")]
     public Slider volumeSlider;
     public Toggle musicToggle;
+    public Toggle Punter;
 
     private void Start()
     {
-        // Cargar valores guardados
         float savedVolume = PlayerPrefs.GetFloat("musicVolume", 1f);
         bool isMusicOn = PlayerPrefs.GetInt("musicEnabled", 1) == 1;
+        bool isPunter = PlayerPrefs.GetInt("PunterEnabled", 1) == 1;
 
-        // Aplicar valores iniciales
         volumeSlider.value = savedVolume;
         musicToggle.isOn = isMusicOn;
+        Punter.isOn = isPunter;
 
         ApplyVolume(savedVolume);
         ApplyMusicToggle(isMusicOn);
 
-        // Suscribirse a eventos
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
         musicToggle.onValueChanged.AddListener(OnMusicToggleChanged);
+        Punter.onValueChanged.AddListener(OnPunterToggleChanged);
     }
 
     public void OnVolumeChanged(float value)
@@ -35,6 +36,11 @@ public class SettingsManager : MonoBehaviour
     {
         ApplyMusicToggle(isOn);
         PlayerPrefs.SetInt("musicEnabled", isOn ? 1 : 0);
+    }
+
+    public void OnPunterToggleChanged(bool isOn)
+    {
+        PlayerPrefs.SetInt("PunterEnabled", isOn ? 1 : 0);
     }
 
     private void ApplyVolume(float volume)
