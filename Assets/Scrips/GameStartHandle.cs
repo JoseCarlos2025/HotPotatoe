@@ -29,6 +29,7 @@ public class GameStartHandle : MonoBehaviour
 
     void OnGrabbed(SelectEnterEventArgs args)
     {
+        Debug.Log(args.interactorObject.handedness);
         if (gameManager != null)
         {
             gameManager.StartOrResumeGame();
