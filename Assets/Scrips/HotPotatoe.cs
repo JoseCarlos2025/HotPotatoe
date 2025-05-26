@@ -115,6 +115,7 @@ public class HotPotato : MonoBehaviour
     {
         timer = 0f;
         transform.localScale = initialScale;
+        AudioManager.instance?.PlaySFX("correct");
     }
 
     public void AddPenaltyTime(float penaltySeconds)
@@ -123,5 +124,6 @@ public class HotPotato : MonoBehaviour
         timer = Mathf.Min(timer, timeToExplode);
         UpdateScale();
         Debug.Log($"Penalización aplicada. Tiempo actual: {timer:F1}/{timeToExplode} segundos.");
+        AudioManager.instance?.PlaySFX("incorrect");
     }
 }
