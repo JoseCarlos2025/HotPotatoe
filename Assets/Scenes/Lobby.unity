@@ -2237,6 +2237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeSlider: {fileID: 1831746747}
   musicToggle: {fileID: 672702440}
+  Punter: {fileID: 1546213928}
 --- !u!4 &433998105
 Transform:
   m_ObjectHideFlags: 0
@@ -2309,7 +2310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gatillo / Puntero
+  m_text: Quitar Puntero
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aefcd003146882f4680b742f51f914ff, type: 2}
   m_sharedMaterial: {fileID: 73634121403757988, guid: aefcd003146882f4680b742f51f914ff, type: 2}
@@ -11115,6 +11116,6 @@ SceneRoots:
   - {fileID: 2314523924652294284}
   - {fileID: 1674409608264375579}
   - {fileID: 5275209039238771711}
+  - {fileID: 2104822630832857021}
   - {fileID: 1115963708}
   - {fileID: 2015364474}
-  - {fileID: 2104822630832857021}
