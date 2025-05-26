@@ -26,7 +26,8 @@ public class AudioManager : MonoBehaviour
     private void LoadSFXClips()
     {
         sfxClips["explosion"] = Resources.Load<AudioClip>("SFX/explosion");
-        sfxClips["CollectCoin"] = Resources.Load<AudioClip>("SFX/Collect_Coin");
+        sfxClips["incorrect"] = Resources.Load<AudioClip>("SFX/incorrect");
+        sfxClips["correct"] = Resources.Load<AudioClip>("SFX/correct");
     }
 
     private void LoadMusicClips()
