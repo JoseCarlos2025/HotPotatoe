@@ -58,8 +58,18 @@ public class QuestionManager : MonoBehaviour
     void LoadQuestions()
     {
         QuestionData data = JsonUtility.FromJson<QuestionData>(jsonFile.text);
-        questions = data.questions;
-        ShuffleQuestions();
+        List<Question> allQuestions = data.questions;
+
+        for (int i = 0; i < allQuestions.Count; i++)
+        {
+            int rand = Random.Range(i, allQuestions.Count);
+            var temp = allQuestions[i];
+            allQuestions[i] = allQuestions[rand];
+            allQuestions[rand] = temp;
+        }
+
+        int count = Mathf.Min(30, allQuestions.Count);
+        questions = allQuestions.GetRange(0, count);
     }
 
     void ShuffleQuestions()
