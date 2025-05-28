@@ -45,6 +45,8 @@ public class QuestionManager : MonoBehaviour
 
     private bool hasGameStarted = false;
     private bool isPaused = false;
+    private bool isWaitingForNext = false;
+
     private int correctAnswers = 0;
     private float gameStartTime;
     private float gameEndTime;
@@ -113,7 +115,9 @@ public class QuestionManager : MonoBehaviour
 
     public void OnAnswerSelected(int index)
     {
-        if (!hasGameStarted || isPaused) return;
+        if (!hasGameStarted || isPaused || isWaitingForNext) return;
+
+        isWaitingForNext = true;
 
         var selectedAnswer = questions[currentQuestionIndex].answers[index];
         bool wasCorrect = selectedAnswer.correct;
@@ -134,7 +138,7 @@ public class QuestionManager : MonoBehaviour
             }
         }
 
-        Invoke(nameof(NextQuestion), 1f);
+        Invoke(nameof(NextQuestion), 1.5f); // Espera 1.5 segundos antes de continuar
     }
 
     public void StartGame()
@@ -154,6 +158,7 @@ public class QuestionManager : MonoBehaviour
         if (currentQuestionIndex < questions.Count)
         {
             ShowCurrentQuestion();
+            isWaitingForNext = false;
         }
         else
         {
@@ -181,6 +186,7 @@ public class QuestionManager : MonoBehaviour
     public void NextQuestionImmediate()
     {
         CancelInvoke();
+        isWaitingForNext = false;
         NextQuestion();
     }
 
@@ -234,4 +240,3 @@ public class QuestionManager : MonoBehaviour
         }
     }
 }
-
