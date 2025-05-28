@@ -9,6 +9,7 @@ public class HotPotato : MonoBehaviour
     public float maxScale = 3f;
     public float timeToExplode = 60f;
     public ParticleSystem explosionParticles;
+    public GameObject smokePrefab;
 
     public XRNode holdingNode = XRNode.LeftHand;
 
@@ -99,12 +100,20 @@ public class HotPotato : MonoBehaviour
         HapticsUtility.SendHapticImpulse(0.5f, 0.2f, HapticsUtility.Controller.Left);
         HapticsUtility.SendHapticImpulse(0.5f, 0.2f, HapticsUtility.Controller.Right);
 
+        // Explosión de partículas
         if (explosionParticles != null)
         {
             explosionParticles.transform.parent = null;
             explosionParticles.transform.position = transform.position;
             explosionParticles.Play();
             Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
+        }
+
+        // Instanciar el humo
+        if (smokePrefab != null)
+        {
+            GameObject smoke = Instantiate(smokePrefab, transform.position, Quaternion.identity);
+            Destroy(smoke, 5f); // destruye el humo después de 5 segundos (ajustable)
         }
 
         OnExploded?.Invoke();

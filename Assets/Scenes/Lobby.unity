@@ -1553,8 +1553,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Creditos:\n\nAyonay Rijo Brito\n\nJose Carlos Litra Quintana\n\nJOEL MEDINA
-    FERRAZ\n\nCarlos Montes  Moreno\n\nEduardo Purri\xF1o Armas"
+  m_text: "Creditos:\n\nAyonay Rijo Brito\n\nJose Carlos Litra Quintana\n\nJoel Medina
+    Ferraz\n\nCarlos Montes  Moreno\n\nEduardo Purri\xF1o Armas"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aefcd003146882f4680b742f51f914ff, type: 2}
   m_sharedMaterial: {fileID: 73634121403757988, guid: aefcd003146882f4680b742f51f914ff, type: 2}
@@ -11009,6 +11009,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c47e85ea0c7f71d40984b98b07681a40, type: 3}
+--- !u!1001 &7611178545822673684
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1776464136985016714, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_Name
+      value: Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5989.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.8185606
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -454.1468
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930158637798447179, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ba6f1fe3d0dcf0e4bbbcf9401d485374, type: 3}
 --- !u!1001 &8091035806738883228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11119,3 +11176,4 @@ SceneRoots:
   - {fileID: 2104822630832857021}
   - {fileID: 1115963708}
   - {fileID: 2015364474}
+  - {fileID: 7611178545822673684}
