@@ -4540,6 +4540,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4464335719551198031, guid: c54cf44c67c829443b9a96e5b2793dda, type: 3}
   m_PrefabInstance: {fileID: 1852333264}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1860430725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860430727}
+  - component: {fileID: 1860430726}
+  m_Layer: 0
+  m_Name: WindRandom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1860430726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860430725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4153c4975246bec4a988a448174501ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windParticlePrefab: {fileID: 3730963328101285127, guid: 9ec1b9d2ab2cbd54e96e80b53f26bcab, type: 3}
+  totalParticles: 10
+  basePosition: {x: 5954, y: 4, z: -453.53}
+  spreadRadius: 8
+  minSpawnDelay: 0.5
+  maxSpawnDelay: 2
+--- !u!4 &1860430727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860430725}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 5955.93, y: 2.69, z: -442.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1909537247
 GameObject:
   m_ObjectHideFlags: 0
@@ -5575,6 +5625,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 462332271}
+  - {fileID: 1860430727}
   - {fileID: 2052664706}
   - {fileID: 3127728407676174907}
   - {fileID: 528064075}
