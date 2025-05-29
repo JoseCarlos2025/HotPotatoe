@@ -1,3 +1,4 @@
+// LocalPlayerRig.cs
 using UnityEngine;
 
 public class LocalPlayerRig : MonoBehaviour
@@ -6,6 +7,20 @@ public class LocalPlayerRig : MonoBehaviour
     public Transform head;
     public Transform leftHand;
     public Transform rightHand;
+
+    [Header("Hand Model Prefabs")]
+    public GameObject defaultLeftHandPrefab;
+    public GameObject defaultRightHandPrefab;
+
+    private GameObject currentLeftHandModel;
+    private GameObject currentRightHandModel;
+
+    void Start()
+    {
+        // Instanciar modelos por defecto al inicio
+        SetLeftHandModel(defaultLeftHandPrefab);
+        SetRightHandModel(defaultRightHandPrefab);
+    }
 
     void Update()
     {
@@ -22,5 +37,35 @@ public class LocalPlayerRig : MonoBehaviour
 
         rightHand.position = VRRigReferences.Singleton.rightHand.position;
         rightHand.rotation = VRRigReferences.Singleton.rightHand.rotation;
+    }
+
+    public void SetLeftHandModel(GameObject prefab)
+    {
+        if (currentLeftHandModel != null)
+            Destroy(currentLeftHandModel);
+
+        currentLeftHandModel = Instantiate(prefab, leftHand);
+        currentLeftHandModel.transform.localPosition = Vector3.zero;
+        currentLeftHandModel.transform.localRotation = Quaternion.identity;
+    }
+
+    public void SetRightHandModel(GameObject prefab)
+    {
+        if (currentRightHandModel != null)
+            Destroy(currentRightHandModel);
+
+        currentRightHandModel = Instantiate(prefab, rightHand);
+        currentRightHandModel.transform.localPosition = Vector3.zero;
+        currentRightHandModel.transform.localRotation = Quaternion.identity;
+    }
+
+    public void ResetLeftHandModel()
+    {
+        SetLeftHandModel(defaultLeftHandPrefab);
+    }
+
+    public void ResetRightHandModel()
+    {
+        SetRightHandModel(defaultRightHandPrefab);
     }
 }
