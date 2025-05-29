@@ -371,6 +371,14 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 1102001389
       objectReference: {fileID: 0}
+    - target: {fileID: 2229677030809788110, guid: 2a6a0ce2ced4ad04783c1614e7368259, type: 3}
+      propertyPath: defaultLeftHandPrefab
+      value: 
+      objectReference: {fileID: 2216069989727011325, guid: 0a6c2cbc1142df046876e3871bfa8fe8, type: 3}
+    - target: {fileID: 2229677030809788110, guid: 2a6a0ce2ced4ad04783c1614e7368259, type: 3}
+      propertyPath: defaultRightHandPrefab
+      value: 
+      objectReference: {fileID: 7862400404819407748, guid: 4b4bff4e39297704c9c41b1ce183d2dc, type: 3}
     - target: {fileID: 3830255064738460855, guid: 2a6a0ce2ced4ad04783c1614e7368259, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3178475886
@@ -5350,6 +5358,14 @@ PrefabInstance:
       propertyPath: punterIzquierdo
       value: 
       objectReference: {fileID: 528064077}
+    - target: {fileID: 1875764499546759157, guid: 3eb6ea6a00325e745b6b661a1dc0168e, type: 3}
+      propertyPath: LhandModelGrabbing
+      value: 
+      objectReference: {fileID: 2216069989727011325, guid: 25c78c6b271540c4eade89576521af0f, type: 3}
+    - target: {fileID: 1875764499546759157, guid: 3eb6ea6a00325e745b6b661a1dc0168e, type: 3}
+      propertyPath: RhandModelGrabbing
+      value: 
+      objectReference: {fileID: 7862400404819407748, guid: 2a329ae7f90ba064f9f80fa28ff8e1ed, type: 3}
     - target: {fileID: 3011994399167641899, guid: 3eb6ea6a00325e745b6b661a1dc0168e, type: 3}
       propertyPath: m_Name
       value: Tenedor

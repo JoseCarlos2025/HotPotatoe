@@ -13,8 +13,11 @@ public class GameStartHandle : MonoBehaviour
     public GameObject punterIzquierdo;
 
     public HotPotato hotPotato;
+    public GameObject LhandModelGrabbing;
+    public GameObject RhandModelGrabbing;
 
     private bool isPunterEnabled;
+    private LocalPlayerRig localPlayerRig;
 
     void Awake()
     {
@@ -28,6 +31,8 @@ public class GameStartHandle : MonoBehaviour
 
         grabInteractable.selectEntered.AddListener(OnGrabbed);
         grabInteractable.selectExited.AddListener(OnReleased);
+
+        localPlayerRig = FindAnyObjectByType<LocalPlayerRig>();
     }
 
     void OnDestroy()
@@ -38,21 +43,21 @@ public class GameStartHandle : MonoBehaviour
 
     void OnGrabbed(SelectEnterEventArgs args)
     {
-        if (args.interactorObject.handedness.ToString() == "Left")
+        bool isLeft = args.interactorObject.handedness.ToString() == "Left";
+
+        if (isLeft)
         {
             hotPotato.holdingNode = XRNode.LeftHand;
-            if (isPunterEnabled)
-            {
-                punterDerecho.SetActive(false);
-            }
+            if (isPunterEnabled) punterDerecho.SetActive(false);
+            if (localPlayerRig != null && LhandModelGrabbing != null)
+                localPlayerRig.SetLeftHandModel(LhandModelGrabbing);
         }
-        else if (args.interactorObject.handedness.ToString() == "Right")
+        else
         {
             hotPotato.holdingNode = XRNode.RightHand;
-            if (isPunterEnabled)
-            {
-                punterIzquierdo.SetActive(false);
-            }
+            if (isPunterEnabled) punterIzquierdo.SetActive(false);
+            if (localPlayerRig != null && RhandModelGrabbing != null)
+                localPlayerRig.SetRightHandModel(RhandModelGrabbing);
         }
 
         AudioManager.instance?.PlaySFX("sword");
@@ -61,19 +66,20 @@ public class GameStartHandle : MonoBehaviour
 
     void OnReleased(SelectExitEventArgs args)
     {
+        bool isLeft = args.interactorObject.handedness.ToString() == "Left";
+
         if (isPunterEnabled)
         {
-            if (args.interactorObject.handedness.ToString() == "Left")
-            {
-                punterDerecho.SetActive(true);
-            }
-            else if (args.interactorObject.handedness.ToString() == "Right")
-            {
-                punterIzquierdo.SetActive(true);
-            }
+            if (isLeft) punterDerecho.SetActive(true);
+            else punterIzquierdo.SetActive(true);
+        }
+
+        if (localPlayerRig != null)
+        {
+            if (isLeft) localPlayerRig.ResetLeftHandModel();
+            else localPlayerRig.ResetRightHandModel();
         }
 
         gameManager?.PauseGame();
     }
 }
-
