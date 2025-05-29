@@ -230,6 +230,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1486871977}
     m_Modifications:
+    - target: {fileID: 1448153727738663246, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -4104,6 +4108,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1486871977}
     m_Modifications:
+    - target: {fileID: 1448153727738663246, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -5519,6 +5527,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1486871977}
     m_Modifications:
+    - target: {fileID: 1448153727738663246, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2600270304612166536, guid: fc39b8ec291ea29489aed1ba9841ecf5, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
       value: 2

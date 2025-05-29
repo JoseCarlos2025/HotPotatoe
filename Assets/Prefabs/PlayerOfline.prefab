@@ -182,7 +182,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e262905fbb487f344b3d5cb09bd29819, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -256,8 +256,8 @@ MonoBehaviour:
   head: {fileID: 4509398737916622676}
   leftHand: {fileID: 828431287718393071}
   rightHand: {fileID: 4653754149968433336}
-  leftHandModel: {fileID: 2216069989727011325, guid: 0a6c2cbc1142df046876e3871bfa8fe8, type: 3}
-  rightHandModel: {fileID: 7862400404819407748, guid: 4b4bff4e39297704c9c41b1ce183d2dc, type: 3}
+  defaultLeftHandPrefab: {fileID: 0}
+  defaultRightHandPrefab: {fileID: 0}
 --- !u!1001 &2671635986613512770
 PrefabInstance:
   m_ObjectHideFlags: 0
